@@ -1,2 +1,3 @@
 # homelab
-My private homelab stuff
+
+This repository will contain my personal notes and scripts. 
