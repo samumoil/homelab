@@ -1,0 +1,8 @@
+Promiscuous mode might be security risk?
+-> Change infrastructure to use bridged networking?
+
+Debian 12 uses systemd-networkd
+-> /etc/network/interfaces is not used at all
+-> either remove systemd-networkd OR set up systemd.service 
+	to make eth0 promiscuous at boot
+	-> guide https://alias454.com/using-a-systemd-service-file-to-control-promiscuous-mode-automatically-at-boot/

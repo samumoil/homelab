@@ -1,0 +1,21 @@
+# Use '-K' flag to prompt for sudo password 
+# ansible-playbook -K <<filename>>
+#####
+#####
+####### CHANGE VM_IP VARIABLE!!!
+#####
+#####
+---    
+- name: postinstall common stuff
+  hosts: postinstall
+  become: yes
+  vars:
+    username: sam
+    vm_ip: "10.10.10.100"
+  tasks: 
+    - name: import vm tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-vm.yaml
+    - name: import common tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-common.yaml

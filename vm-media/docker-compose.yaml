@@ -1,0 +1,45 @@
+version: "3"
+
+networks:
+  vlan10:
+    external: true
+  common:
+    external: true
+
+services:
+############################################
+  jellyfin:
+    hostname: jellyfin
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Helsinki
+#      - JELLYFIN_PublishedServerUrl=https://jellyfin.peikkoluola.com #optional
+    volumes:
+      - /samu/app-databases/jellyfin:/config
+      - /samu/smb-cloud-ssd/pcloud/jako-perhe/musiikki:/data/music
+#      - /samu/docker/aaa-verkkoinfra/swag-conf/etc/letsencrypt/live/peikkoluola.com:/ssl-certs
+    networks:
+      vlan10:
+        ipv4_address: 10.10.10.222
+    ports:
+      - 8096:8096
+      - 8920:8920 #optional
+      - 7359:7359/udp #optional
+      - 1900:1900/udp #optional
+    restart: unless-stopped
+############################################
+  agent:
+    container_name: portainer-agent
+    hostname: portainer-agent
+    image: portainer/agent
+    restart: unless-stopped
+    ports:
+      - "9001:9001"
+    volumes:
+      # Mount the host's Docker socket into the container
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Mount the host's Docker volumes into the container
+      - /var/lib/docker/volumes:/var/lib/docker/volumes

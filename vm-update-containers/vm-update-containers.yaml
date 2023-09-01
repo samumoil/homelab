@@ -1,0 +1,14 @@
+---
+- name: update existing docker stuff
+  hosts: dns
+  become: yes
+  vars:
+    - username: sam
+    - location_compose_confs: "../vm-dns/docker-compose.yaml"
+
+  tasks:
+# Copy configuration files from {{location_compose+confs}}
+# and docker-compose up -d --force-recreate and docker prune
+    - name: import tasks-update-containers (conf copy + docker-compose up)
+      import_tasks:
+        file: ../tasks/tasks-update-containers.yaml

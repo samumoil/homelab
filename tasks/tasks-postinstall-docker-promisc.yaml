@@ -1,0 +1,45 @@
+---
+# Install Docker
+- name: install docker + docker-compose
+  apt:
+    name:
+    - docker.io
+    - docker-compose
+
+- name: add user permissions
+  command: "usermod -aG docker {{ username }}"
+
+- name: create promisc.service file in /etc/systemd/system
+  copy:
+    dest: /etc/systemd/system/promisc.service
+    mode: '0644'
+    content: |
+      [Unit]
+      Description=Control promiscuous mode for interface eth0
+      After=network.target
+      
+      [Service]
+      Type=oneshot
+      ExecStart=/usr/bin/ip link set eth0 promisc on
+      ExecStop=/usr/bin/ip link set eth0 promisc off
+      RemainAfterExit=yes
+      
+      [Install]
+      WantedBy=multi-user.target
+
+- name: enable promisc.service
+  systemd:
+    name: promisc.service
+    state: started
+    enabled: true
+
+- name: reboot vm to get both user permissions and network conf working
+  ansible.builtin.reboot:
+
+# Create L2 ipvlan for containers
+- name: create network vlan10
+  command: "docker network create -d ipvlan -o ipvlan_mode=l2 -o parent=eth0 --subnet={{ docker_network_subnet_CIDR }} --attachable {{ docker_network_name }}"
+# Create bridge network "common" 
+- name: create network common with subnet 10.111.111.0
+  command: "docker network create --subnet 10.111.111.0/24 --attachable common"
+

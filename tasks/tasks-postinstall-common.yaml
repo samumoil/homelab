@@ -1,0 +1,55 @@
+# Use '-K' flag to prompt for sudo password 
+# ansible-playbook -K <<filename>>
+---
+- name: update-upgrade-packages
+  apt:
+    update_cache: true
+    upgrade: safe
+- name: install utilities
+  apt:
+    state: latest
+    pkg:
+      - nano
+      - tree
+      - screen
+      - htop
+      - ssh
+      - samba
+      - nfs-common
+      - cifs-utils
+# This file is maybe bunsenlabs specific. Check /etc/profile if unsure.
+- name: add global bash aliases
+  blockinfile:
+    path: /etc/bash.bashrc
+    marker: "# ---ADDED BY ANSIBLE---"
+    state: present
+    block: |
+      alias ..='cd ..'
+      alias la='ls -lAhp --group-directories-first'
+      alias docker='sudo docker'
+      alias docker-compose='sudo docker-compose'
+      alias ip='ip --color'
+- name: Create a directory /samu
+  ansible.builtin.file:
+    path: /samu
+    state: directory
+    owner: '{{ username }}'
+    group: '{{ username }}'
+    mode: '0700'
+- name: Create symbolic link to /samu
+  ansible.builtin.file:
+    src: /samu
+    dest: /home/{{ username }}/samu
+    owner: "{{ username}}"
+    group: "{{ username}}"
+    state: link
+
+# Set nano to not add lines at end of files
+- name: nano config
+  blockinfile:
+    path: /etc/nanorc
+    marker: "# ---ADDED BY ANSIBLE---"
+    state: present
+    block: |
+      set nonewlines
+      set autoindent

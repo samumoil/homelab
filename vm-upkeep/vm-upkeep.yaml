@@ -1,0 +1,56 @@
+# Create new vm with IP of 10.10.10.116
+---
+- name: install unifi-controller + portainer
+  hosts: upkeep
+  become: yes
+  vars:
+    - username: sam
+    - vm_ip: "10.10.10.116"
+    - docker_network_subnet_CIDR: "10.10.10.0/24"
+    - docker_network_name: "vlan10"
+    - location_compose_confs: "../vm-upkeep/docker-compose.yaml"
+
+  tasks:
+# Install qemu guest agent and configure /etc/interfaces with promisc mode
+# This is first because it begins with reboot for system time
+    - name: import vm tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-vm.yaml
+###
+    - name: import common tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-common.yaml
+
+###
+    - name: create folders in /samu/*
+      ansible.builtin.file:
+        path: /samu/{{ item }}
+        recurse: true
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "770"
+      with_items:
+        - portainer
+        - unifi
+
+###
+    - name: add cifs/samba details to /etc/fstab
+      blockinfile:
+        path: /etc/fstab
+        marker: "# ---ADDED BY ANSIBLE---"
+        state: present
+        block: |
+          10.10.10.122:/mnt/nas-ssd/app-databases/portainer /samu/portainer nfs rw 0 0
+          10.10.10.122:/mnt/nas-ssd/app-databases/unifi /samu/unifi nfs rw 0 0
+
+# Install Docker
+    - name: import docker installation tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-docker.yaml
+
+# Copy configuration files from {{location_compose+confs}}
+# and docker-compose up -d --force-recreate and docker prune
+    - name: import tasks-update-containers (conf copy + docker-compose up)
+      import_tasks:
+        file: ../tasks/tasks-update-containers.yaml

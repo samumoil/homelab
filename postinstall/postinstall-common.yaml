@@ -1,0 +1,12 @@
+# Use '-K' flag to prompt for sudo password 
+# ansible-playbook -K <<filename>>
+---    
+- name: postinstall common stuff
+  hosts: postinstall
+  become: yes
+  vars:
+    username: sam
+  tasks: 
+    - name: import common tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-common.yaml

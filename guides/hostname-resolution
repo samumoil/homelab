@@ -1,0 +1,12 @@
+Virtual machines do not ask for IP address so EdgeRouter doesn't
+get their IPs/hostnames. There are to options:
+
+1) Add all VM hostnames to each linux systems /etc/hosts -file.
+2) Add all VM hostnames to EdgeRouter.
+
+How to add static hostnames to EdgeRouter:
+Config Tree
+System
+static-host-mapping
+host-name
+...

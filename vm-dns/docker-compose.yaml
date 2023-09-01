@@ -1,0 +1,96 @@
+version: '3.7'
+
+networks:
+  vlan10:
+    external: true
+  common:
+    external: true
+
+secrets:
+  webpassword:
+    file: webpassword
+
+services:
+############################################
+  portainer-agent:
+    container_name: portainer-agent
+    hostname: portainer-agent
+    image: portainer/agent
+    restart: unless-stopped
+    networks:
+      common:
+    ports:
+      - "9001:9001"
+    volumes:
+      # Mount the host's Docker socket into the container
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Mount the host's Docker volumes into the container
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+############################################
+  unbound-dns:
+    container_name: unbound-dns
+    hostname: unbound-dns
+    image: alpinelinux/unbound:latest
+    restart: always
+    volumes:
+      - /samu/unbound-dns/unbound.conf:/etc/unbound/unbound.conf
+    networks:
+#      common:
+#        ipv4_address: 10.111.111.112
+      vlan10:
+        ipv4_address: 10.10.10.112
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    cap_add:
+      - CAP_NET_ADMIN
+#############################
+  pihole:
+    container_name: pihole
+    hostname: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+#      - "67:67/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+    networks:
+      vlan10:
+        ipv4_address: 10.10.10.111
+#      common:
+#        ipv4_address: 10.111.111.111
+    dns:
+      - '10.10.10.112'
+      - '10.10.10.1'
+# This adds hostnames to containers /etc/hosts file
+    extra_hosts:
+      - "router:10.10.17.1"
+      - "unifi:10.10.10.116"
+      - "portainer:10.10.10.116"
+    environment:
+      # This is our unbound container in 'common' network
+      PIHOLE_DNS_: '10.10.10.112'
+      TZ: 'Europe/Helsinki'
+      # This needs to be empty for webpassword_file to work
+      WEBPASSWORD:
+      WEBPASSWORD_FILE: '/run/secrets/webpassword'
+      REV_SERVER: 'true'
+      REV_SERVER_TARGET: '10.10.10.1'
+      REV_SERVER_CIDR: '10.0.0.0/8'
+      PIHOLE_DOMAIN: 'peikkoluola'
+      DNS_BOGUS_PRIV: 'true'
+      DNS_FQDN_REQUIRED: 'true'
+      # This is needed because my network is isolated and
+      # we need to listen to everything
+      DNSMASQ_LISTENING: 'all'
+      # Consider maybe adding long term query database 
+      # in .pihole-conf/etc/pihole/pihole-FTL.db:/etc/pihole/pihole-FTL.db
+    volumes:
+      - '/samu/pihole/etc/pihole/:/etc/pihole/'
+      - '/samu/pihole/etc/dnsmasq.d/:/etc/dnsmasq.d/'
+#    cap_add:
+#      - CAP_NET_ADMIN
+    secrets:
+      - webpassword
+    restart: always

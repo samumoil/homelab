@@ -1,0 +1,19 @@
+EdgeMAX routeriin piti säätää systeemitason DNS-serveriksi 127.0.0.1
+
+Forwarding DNS-serverin asetuksista päälle systeemitason dns-serverin käyttö
+eteenpäin lähetyksessä. 
+
+Tämän seurauksena edgeos käyttää omaa järjestelmää nimien hakuun, ja koska
+omassa järjestelmässä dns-serveri on säädetty olemaan 10.10.10.111 (pihole), niin
+nyt clienttien lähettämät pyynnöt haetaan 10.10.10.111 osoitteesta.
+
+Katso säätö:
+https://lucanuscervus-notes.readthedocs.io/en/latest/Networking/EdgeOS/dnsmasq/
+
+EdgeOS CLI:
+
+configure
+set system name-server 127.0.0.1
+commit
+save
+exit

@@ -1,0 +1,58 @@
+﻿# Use '-K' flag to prompt for sudo password
+# ansible-playbook -K <<filename>>
+# If Debian 12 was installed, you possibly need to run:
+# sudo dpkg --purge raspi-firmware
+# This is needed because for some reason Debian 12 GUI
+# installer installs raspi-firmware stuff (on laptops?)
+#
+# Also you may want to update grub for TIMEOUT=0
+# /etc/default/grub
+# /etc/grub.d/30_os.prober (find if clause for timeout and comment out)
+---
+- name: desktop-postinstall
+  hosts: postinstall
+  vars:
+    - username: "sam"
+  become: yes
+  ### Change to whatever applicable user    
+  tasks:
+
+    - name: import common tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-common.yaml
+
+###
+    - name: install-packages
+      apt:
+        state: latest
+        pkg:
+        - tilda
+        - redshift
+        - redshift-gtk
+        - git
+        - ansible
+#        - midori
+        - geany
+        - conky
+        - zsh
+        - glances
+###
+    - name: copy configuration files to home
+      copy:
+        src: ../configs-desktop/
+        dest: /home/{{ username }}/
+        backup: true
+        owner: "{{ username }}"
+        group: "{{ username }}"
+
+    - name: load keyboard configs from file
+      become_user: "{{ username }}"
+      shell: "dconf load /org/cinnamon/desktop/keybindings/ < samu-cinnamon-keybindings.dconf"
+      args:
+        chdir: /home/{{ username }}/.config/
+
+
+# Vielä nämä jotenkin lisätä, desktop:
+# SSH avainten kopiointi 
+# 1password asennus
+# fstab smb/cifs truenas automaattisesti

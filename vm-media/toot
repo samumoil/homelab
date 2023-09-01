@@ -1,0 +1,9 @@
+###
+    - name: add cifs/samba details to /etc/fstab
+      blockinfile:
+        path: /etc/fstab
+        marker: "# ---ADDED BY ANSIBLE---"
+        state: present
+        block: |
+          //10.10.10.122/cloud-ssd /samu/smb-cloud-ssd cifs credentials=/samu/.smb_credentials,uid=1000,gid=1000,rw,iocharset=utf8 0 0
+          10.10.10.122:/mnt/nas-ssd/app-databases /samu/app-databases nfs rw 0 0

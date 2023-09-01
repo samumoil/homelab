@@ -1,0 +1,6 @@
+# Ennen ansible komentoa täytyy kopioida ssh-pub avain remote-koneelle.
+ssh-copy-id username@hostname
+# Varmista toimivuus kirjautumalla ssh yhteyteen ilman salasanaa
+
+# "-i hosts" references hosts-file in ./ folder
+ansible-playbook -K debian-postinstall.yaml

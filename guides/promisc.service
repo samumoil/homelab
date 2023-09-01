@@ -1,0 +1,12 @@
+[Unit]
+Description=Control promiscuous mode for interface eth0
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/ip link set eth0 promisc on
+ExecStop=/usr/bin/ip link set eth0 promisc off 
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

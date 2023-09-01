@@ -1,0 +1,84 @@
+# Create new vm with IP of 10.10.10.110
+#
+#
+#
+### THIS VIRTUAL MACHINE NEEDS DNS IP OF 10.111.111.111
+# This way it uses pihole as dns server.
+# Use 10.10.10.1 as secondary dns server
+#
+
+---
+- name: install pihole + unbound-dns
+  hosts: dns
+  become: yes
+  vars:
+    - username: sam
+    - vm_ip: "10.10.10.110"
+    - docker_network_subnet_CIDR: "10.10.10.0/24"
+    - docker_network_name: "vlan10"
+    - location_compose_confs: "../vm-dns/docker-compose.yaml"
+
+  vars_prompt:
+    - name: webpassword
+      prompt: Give password for pihole admin console
+
+  tasks:
+# Install qemu guest agent and configure /etc/interfaces with promisc mode
+# This is first because it begins with reboot for system time
+    - name: import vm tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-vm.yaml
+###
+    - name: import common tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-common.yaml
+
+###
+    - name: create folders in /samu/*
+      ansible.builtin.file:
+        path: /samu/{{ item }}
+        recurse: true
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "770"
+      with_items:
+        - pihole
+        - unbound-dns
+###
+    - name: add cifs/samba details to /etc/fstab
+      blockinfile:
+        path: /etc/fstab
+        marker: "# ---ADDED BY ANSIBLE---"
+        state: present
+        block: |
+          10.10.10.122:/mnt/nas-ssd/app-databases/unbound-dns /samu/unbound-dns nfs rw 0 0
+          10.10.10.122:/mnt/nas-ssd/app-databases/pihole /samu/pihole nfs rw 0 0
+
+### lineinfile doesn't add # ADDED BY ANSIBLE -markers
+    - name: add pihole webpassword-file
+      lineinfile:
+        path: /samu/webpassword
+        create: true
+        owner: root
+        group: root
+        mode: '0000'
+        line: '{{ webpassword }}'
+
+# Install Docker
+    - name: import docker installation tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-docker-promisc.yaml
+
+# Copy configuration files from {{location_compose+confs}}
+# and docker-compose up -d --force-recreate and docker prune
+    - name: import tasks-update-containers (conf copy + docker-compose up)
+      import_tasks:
+        file: ../tasks/tasks-update-containers.yaml
+
+# For some reason unbound-dns doesn't start at previous step
+    - name: start unbound-dns
+      become_user: "{{ username }}"
+      command: "docker-compose up -d --force-recreate"
+      args:
+        chdir: /samu/

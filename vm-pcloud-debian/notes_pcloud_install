@@ -1,0 +1,50 @@
+
+
+
+#This should be run in interactive mode because of choices made during install
+### Install openbox with minimal stuff: https://prahladyeri.github.io/blog/2016/02/minimal-debian-desktop-setup.html
+sudo apt install xorg icewm epiphany-browser pcmanfm
+
+#####################################
+Guide for autologin to gui:
+https://forums.debian.net/viewtopic.php?t=123694
+
+[[
+#For automatic login, run this command (as root):
+systemctl edit getty@tty1
+
+#Then enter this text and save the file afterwards:
+#Replace $username with your user name.
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --autologin sam --noclear %I $TERM
+
+#For automatic `startx` add this snippet to the end of the file at ~/.profile:
+[ "$(tty)" = "/dev/tty1" ] && exec startx
+
+#Finally, set the correct default.target to ensure the system boots to the console (TTY) rather than to a display manager:
+systemctl set-default multi-user.target
+
+#To reverse this change, reset the default.target with:
+systemctl set-default graphical.target
+]]
+
+################################
+After installing:
+~/.config/icewm/startup
+
+#!/bin/sh
+# start pcloud after delay
+    sleep 5 &&
+    pcloud &
+
+
+chmod +x autostart
+################################
+
+DOWNLOAD PCLOUD BINARY
+chmod +x ~/Downloads/pcloud
+mkdir ~/bin
+mv ~/Downloads/pcloud ~/bin
+
+

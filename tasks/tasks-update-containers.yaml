@@ -1,0 +1,21 @@
+# Copy compose files from ansible host
+- name: copy compose file
+  ansible.builtin.copy:
+    src: "{{ location_compose_confs }}"
+    dest: /samu/
+    mode: '0744'
+
+# Container creation
+- name: start container from compose file
+  become_user: "{{ username }}"
+  command: "docker-compose up -d --force-recreate"
+  args:
+    chdir: /samu/
+
+- name: prune docker stuff
+  become_user: "{{ username }}"
+  command: "docker system prune -af --volumes"
+
+# Finally a reboot for changes to take effect
+- name: reboot machine
+  ansible.builtin.reboot:

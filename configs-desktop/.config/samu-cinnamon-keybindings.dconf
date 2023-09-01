@@ -1,0 +1,35 @@
+[/]
+custom-list=['custom3', 'custom1', 'custom0', '__dummy__', 'custom2']
+looking-glass-keybinding=@as []
+show-desklets=@as []
+
+[custom-keybindings/custom0]
+binding=['<Super>s']
+command='cinnamon-settings sound'
+name='Sound settings'
+
+[custom-keybindings/custom1]
+binding=['<Primary><Shift>Escape']
+command='gnome-system-monitor'
+name='Launch system monitor'
+
+[custom-keybindings/custom2]
+binding=['<Super>q']
+command='cinnamon-session-quit --power-off'
+name='Launch session guit'
+
+[custom-keybindings/custom3]
+binding=['<Super>b']
+command='blueman-manager'
+name='Launch bluetooth manager'
+
+[media-keys]
+area-screenshot-clip=['<Super>Print']
+home=['<Super>f', 'XF86Explorer']
+logout=['<Super>x']
+screensaver=['<Super>l', 'XF86ScreenSaver']
+terminal=['<Super>t']
+www=['<Super>w']
+
+[wm]
+show-desktop=@as []

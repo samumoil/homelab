@@ -1,0 +1,7 @@
+### SAMU This command outputs current keyboard settings to a file
+# in current directory
+dconf dump /org/cinnamon/desktop/keybindings/ > samu-cinnamon-keybindings.dconf
+
+### SAMU This command loads previous keyboard settings from a file
+# in current directory
+dconf load /org/cinnamon/desktop/keybindings/ < samu-cinnamon-keybindings.dconf

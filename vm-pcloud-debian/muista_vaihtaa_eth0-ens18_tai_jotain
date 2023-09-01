@@ -1,0 +1,2 @@
+Ansible tekee /etc/network/interfaces tiedostoon lisäykset, mutta
+sieltä täytyy muuttaa eth0 siihen nimeen, joka näkyy "ip a" komennolla.

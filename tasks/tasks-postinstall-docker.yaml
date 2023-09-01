@@ -1,0 +1,18 @@
+---
+# Install Docker
+- name: install docker + docker-compose
+  apt:
+    name:
+    - docker.io
+    - docker-compose
+
+- name: add user permissions
+  command: "usermod -aG docker {{ username }}"
+
+- name: reboot vm to get both user permissions and network conf working
+  ansible.builtin.reboot:
+
+# Create bridge network "common" 
+- name: create network common with subnet 10.111.111.0
+  command: "docker network create --subnet 10.111.111.0/24 --attachable common"
+

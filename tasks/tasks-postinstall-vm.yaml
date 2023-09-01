@@ -1,0 +1,18 @@
+---
+# Fix issue with system time not being synced. Prevents apt update.
+- name: reboot vm to sync system time
+  ansible.builtin.reboot:
+
+- name: reconfigure dpkg "dpkg --configure -a"
+  command: "dpkg --configure -a"
+
+- name: update-upgrade-packages
+  apt:
+    update_cache: true
+    upgrade: safe
+
+- name: install qemu-guest-agent
+  apt:
+    state: latest
+    pkg:
+      - qemu-guest-agent
