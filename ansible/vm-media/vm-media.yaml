@@ -68,7 +68,7 @@
 # Install docker and add docker networks
     - name: import docker install/conf file
       import_tasks:
-        file: ../tasks/tasks-postinstall-docker.yaml
+        file: ../tasks/tasks-postinstall-docker-promisc.yaml
 
 # Copy configuration files from {{location_compose+confs}}
 # and docker-compose up -d --force-recreate and docker prune

@@ -26,6 +26,7 @@
     block: |
       alias ..='cd ..'
       alias la='ls -lAhp --group-directories-first'
+      alias lar='la -R'
       alias docker='sudo docker'
       alias docker-compose='sudo docker-compose'
       alias ip='ip --color'
