@@ -1,6 +1,6 @@
 ---
 - name: update existing docker stuff
-  hosts: dns
+  hosts: upkeep
   become: yes
   vars:
     - username: sam
