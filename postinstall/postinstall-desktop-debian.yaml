@@ -10,7 +10,7 @@
 # /etc/grub.d/30_os.prober (find if clause for timeout and comment out)
 ---
 - name: desktop-postinstall
-  hosts: postinstall
+  hosts: local
   vars:
     - username: "sam"
   become: yes
