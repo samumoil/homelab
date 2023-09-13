@@ -9,8 +9,10 @@ Guide copied and modified from [https://ochoaprojects.github.io/posts/ProxMoxClo
 Latest Debian 12 cloudinit images can be found [here](https://cloud.debian.org/images/cloud/bookworm/latest/)
 Image used in Proxmox is "genericcloud": [https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2](https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2)
 
-`cd ~ && mkdir temp && cd temp`
-`wget https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2`
+```
+cd ~ && mkdir temp && cd temp
+wget https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2
+```
 
 ### 2. Create virtual machine, configurate it and turn it into template
 
