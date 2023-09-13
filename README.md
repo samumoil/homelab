@@ -1,6 +1,6 @@
 # Homelab
 
-This repository contains my personal notes, scripts, ansible playbooks etc. This material is designed to work in my personal homelad and you probably shouldn't copy paste this to your setup. You are however free to use whatever material you find useful to modify to your own use.
+This repository contains my personal notes, scripts, ansible playbooks etc. This material is designed to work in my personal homelab and you probably shouldn't copy paste this to your setup. You are however free to use whatever material you find useful to modify to your own use.
 
 ## My homelab
 
