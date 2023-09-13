@@ -1,4 +1,4 @@
-#How to create Debian 12 cloudinit templates in Proxmox
+# How to create Debian 12 cloudinit templates in Proxmox
 
 Guide copied and modified from [https://ochoaprojects.github.io/posts/ProxMoxCloudInitImage/](https://ochoaprojects.github.io/posts/ProxMoxCloudInitImage/)
 
