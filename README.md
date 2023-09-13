@@ -11,5 +11,6 @@ Future projects include:
 - Terraform scripts for VM creation.
 - Photo gallery to browse photo archive inside home network.
 
-As of september 2023 my homelab layout is something like this:
+## As of september 2023 my homelab layout is something like this:
+
 ![Diagram image of homelab](assets/homelab_diagram.png)
