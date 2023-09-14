@@ -1,0 +1,9 @@
+sudo apt install syncthing
+sudo systemctl enable syncthing@sam
+sudo systemctl start syncthing@sam
+
+After adding a shared folder on one node, you may have to change
+it's path on the other node. Go to ~/.config/syncthing/config.xml
+and find correct folder entry (check folder name from GUI).
+Change folder to proper one. If needed, rename the funny named
+folder to correct one and 'sudo systemctl restart syncthing@sam'.
