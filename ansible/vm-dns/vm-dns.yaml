@@ -2,10 +2,6 @@
 #
 #
 #
-### THIS VIRTUAL MACHINE NEEDS DNS IP OF 10.111.111.111
-# This way it uses pihole as dns server.
-# Use 10.10.10.1 as secondary dns server
-#
 
 ---
 - name: install pihole + unbound-dns
@@ -16,7 +12,7 @@
     - vm_ip: "10.10.10.110"
     - docker_network_subnet_CIDR: "10.10.10.0/24"
     - docker_network_name: "vlan10"
-    - location_compose_confs: "../vm-dns/docker-compose.yaml"
+    - location_compose_confs: "../vm-dns/configs/"
 
   vars_prompt:
     - name: webpassword
@@ -45,15 +41,6 @@
       with_items:
         - pihole
         - unbound-dns
-###
-#    - name: add cifs/samba details to /etc/fstab
-#      blockinfile:
-#        path: /etc/fstab
-#        marker: "# ---ADDED BY ANSIBLE---"
-#        state: present
-#        block: |
-#          10.10.10.122:/mnt/nas-ssd/app-databases/unbound-dns /samu/unbound-dns nfs rw 0 0
-#          10.10.10.122:/mnt/nas-ssd/app-databases/pihole /samu/pihole nfs rw 0 0
 
 ### lineinfile doesn't add # ADDED BY ANSIBLE -markers
     - name: add pihole webpassword-file
@@ -76,9 +63,3 @@
       import_tasks:
         file: ../tasks/tasks-update-containers.yaml
 
-# For some reason unbound-dns doesn't start at previous step
-    - name: start unbound-dns
-      become_user: "{{ username }}"
-      command: "docker-compose up -d --force-recreate"
-      args:
-        chdir: /samu/

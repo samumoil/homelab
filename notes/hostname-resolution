@@ -1,12 +1,7 @@
-Virtual machines do not ask for IP address so EdgeRouter doesn't
-get their IPs/hostnames. There are to options:
+In pihole dnsmasq.d folder there's custom.list file.
+Entry 'address=/peikkoluola.com/10.10.10.17 will forward
+all *.peikkoluola.com requests to 10.10.10.17 (swag).
 
-1) Add all VM hostnames to each linux systems /etc/hosts -file.
-2) Add all VM hostnames to EdgeRouter.
-
-How to add static hostnames to EdgeRouter:
-Config Tree
-System
-static-host-mapping
-host-name
-...
+In pihole custom.list file there are entries that
+go to pihole container's /etc/hosts file. This way
+we can add VM ip addresses to that file.
