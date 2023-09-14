@@ -20,12 +20,14 @@ services:
     volumes:
       - /samu/app-databases/jellyfin:/config
       - /samu/smb-cloud-ssd/pcloud/jako-perhe/musiikki:/data/music
+      - /samu/smb-cloud-ssd/pcloud/jako-perhe/kuvat+videot:/data/photos
 #      - /samu/docker/aaa-verkkoinfra/swag-conf/etc/letsencrypt/live/peikkoluola.com:/ssl-certs
     networks:
-      vlan10:
-        ipv4_address: 10.10.10.222
+      common:
+#      vlan10:
+#        ipv4_address: 10.10.10.222
     ports:
-      - 8096:8096
+      - 80:8096
       - 8920:8920 #optional
       - 7359:7359/udp #optional
       - 1900:1900/udp #optional
@@ -36,6 +38,8 @@ services:
     hostname: portainer-agent
     image: portainer/agent
     restart: unless-stopped
+    networks:
+      common:
     ports:
       - "9001:9001"
     volumes:

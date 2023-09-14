@@ -1,11 +1,11 @@
-# Create new vm with IP of 10.10.10.220
+# Create new vm with IP of 10.10.10.222
 ---
 - name: media stack installation
   hosts: media
   become: yes
   vars:
     - username: sam
-    - vm_ip: "10.10.10.220"
+    - vm_ip: "10.10.10.222"
     - docker_network_subnet_CIDR: "10.10.10.0/24"
     - docker_network_name: "vlan10"
     - location_compose_confs: "../vm-media/docker-compose.yaml"
@@ -68,7 +68,8 @@
 # Install docker and add docker networks
     - name: import docker install/conf file
       import_tasks:
-        file: ../tasks/tasks-postinstall-docker-promisc.yaml
+        file: ../tasks/tasks-postinstall-docker.yaml
+#        file: ../tasks/tasks-postinstall-docker-promisc.yaml
 
 # Copy configuration files from {{location_compose+confs}}
 # and docker-compose up -d --force-recreate and docker prune

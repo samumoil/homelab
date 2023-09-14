@@ -17,4 +17,4 @@ localhost ansible_connection=local
 10.10.10.116
 
 [media]
-10.10.10.220
+10.10.10.222
