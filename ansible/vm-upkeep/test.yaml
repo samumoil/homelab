@@ -1,0 +1,20 @@
+# Create new vm with IP of 10.10.10.116
+---
+- name: install unifi-controller + portainer
+  hosts: upkeep
+  become: yes
+  vars:
+    - username: sam
+    - vm_ip: "10.10.10.116"
+    - docker_network_subnet_CIDR: "10.10.10.0/24"
+    - docker_network_name: "vlan10"
+    - location_compose_confs: "../vm-upkeep/config/"
+
+  tasks:
+# Add crontab entry for uptime kuma database backup script
+    - name: add crontab entry for uptime kuma database backup
+      cron:
+        name: "backup uptime kuma database"
+        # Runs once per hour at time xy:01
+        minute: "1"
+        job: "/samu/backup.sh"

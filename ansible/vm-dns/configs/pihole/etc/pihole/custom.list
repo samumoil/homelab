@@ -1,8 +1,8 @@
-10.10.10.17	swag
-10.10.10.100	controller
-10.10.10.110	dns
-10.10.10.116	upkeep
-10.10.10.122	truenas
-10.10.10.222	media
-192.168.1.1	router
-192.168.1.10	proxmox
+10.10.10.100 controller
+10.10.10.110 dns dns.peikkoluola
+10.10.10.116 upkeep upkeep.peikkoluola
+10.10.10.117 swag swag.peikkoluola
+10.10.10.122 truenas truenas.peikkoluola
+10.10.10.222 media media.peikkoluola
+192.168.1.10 proxmox proxmox.peikkoluola
+192.168.1.1 router router.peikkoluola

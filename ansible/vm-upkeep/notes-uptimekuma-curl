@@ -1,0 +1,12 @@
+curl -sk -o /dev/null http://10.10.10.116:3001/api/push/UcJDW1MBsD
+
+-s = silent
+-k = skip ssl certification check
+-o /dev/null = output of curl goes to /dev/null
+
+Uptime Kuma gives url with "ping" and "status" stuff. Remove those.
+
+
+
+Maybe add uptime kume outside of local lan with this guide?
+https://noted.lol/easy-off-site-monitoring-with-fly-io-and-uptime-kuma/
