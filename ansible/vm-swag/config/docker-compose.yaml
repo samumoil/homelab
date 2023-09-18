@@ -1,0 +1,49 @@
+version: "3.7"
+
+networks:
+#  vlan10:
+#    external: true
+  common:
+    external: true
+
+services:
+#############################
+  swag:
+    image: lscr.io/linuxserver/swag:latest
+    container_name: swag
+    hostname: swag
+    stdin_open: true
+    tty: true
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Helsinki
+      - URL=peikkoluola.com
+      - VALIDATION=dns
+      - SUBDOMAINS=wildcard
+#      - CERTPROVIDER= #optional
+      - DNSPLUGIN=cloudflare #optional
+      - STAGING=true #optional, set true for testing purposes
+    volumes:
+      - /samu/swag:/config
+    ports:
+      - 443:443
+      - 80:80 #optional
+    restart: unless-stopped
+##############################
+  portainer-agent:
+    container_name: portainer-agent
+    hostname: portainer-agent
+    image: portainer/agent
+    restart: unless-stopped
+    networks:
+      common:
+    ports:
+      - 9001:9001
+    volumes:
+    #Mount the host's Docker socket into the container
+      - /var/run/docker.sock:/var/run/docker.sock
+    #Mount the host's Docker volumes into the container
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
