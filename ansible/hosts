@@ -10,11 +10,13 @@ localhost ansible_connection=local
 [dockerhost]
 10.10.10.200
 
-#[pcloud-debian]
-#10.10.10.130
-
 [upkeep]
 10.10.10.116
 
 [media]
 10.10.10.222
+
+[swag]
+10.10.10.117
+
+[aws]

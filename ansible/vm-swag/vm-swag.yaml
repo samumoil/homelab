@@ -1,0 +1,95 @@
+# Create new vm with IP of 10.10.10.116
+---
+- name: install swag
+  hosts: swag
+  become: yes
+  vars:
+    - username: sam
+    - vm_ip: "10.10.10.117"
+    - docker_network_subnet_CIDR: "10.10.10.0/24"
+    - docker_network_name: "vlan10"
+    - location_compose_confs: "../vm-swag/config/"
+
+  vars_prompt:
+    - name: cloudflare_email
+      prompt: Give cloudflare api email
+    - name: cloudflare_api_key
+      prompt: Give cloudflare api key
+    - name: remote_kuma_ip
+      private: false
+      prompt: Give remote uptime kuma aws IP
+
+  tasks:
+# Install qemu guest agent and configure /etc/interfaces with promisc mode
+# This is first because it begins with reboot for system time
+    - name: import vm tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-vm.yaml
+###
+    - name: import common tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-common.yaml
+###
+    - name: install cron
+      apt:
+        state: latest
+        pkg:
+          - cron
+###
+    - name: create folders in /samu/*
+      ansible.builtin.file:
+        path: /samu/{{ item }}
+        recurse: true
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "770"
+      with_items:
+        - swag/dns-conf
+        - nfs-swag
+###
+    - name: add cloudflare api key
+      blockinfile:
+        path: /samu/swag/dns-conf/cloudflare.ini
+        marker: "# ---ADDED BY ANSIBLE---"
+        state: present
+        create: true
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "600"
+        block: |
+          dns_cloudflare_email = "{{ cloudflare_email }}"
+          dns_cloudflare_api_key = "{{ cloudflare_api_key }}"
+###
+    - name: add cifs/samba details to /etc/fstab
+      blockinfile:
+        path: /etc/fstab
+        marker: "# ---ADDED BY ANSIBLE---"
+        state: present
+        block: |
+          10.10.10.122:/mnt/nas-ssd/app-databases/swag /samu/nfs-swag nfs rw 0 0
+
+# Install Docker
+    - name: import docker installation tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-docker.yaml
+
+# Copy configuration files from {{location_compose+confs}}
+# and docker-compose up -d --force-recreate and docker prune
+    - name: import tasks-update-containers (conf copy + docker-compose up)
+      import_tasks:
+        file: ../tasks/tasks-update-containers.yaml
+###
+    - name: add remote uptime kuma aws IP address to proxy config file
+      ansible.builtin.replace:
+        path: /samu/swag/nginx/proxy-confs/uptime-kuma-remote.subdomain.conf
+        regexp: 'remote_ip'
+        replace: '{{ remote_kuma_ip }}'
+###
+    - name: Create cron job to sync SSL certificate to nfs
+      ansible.builtin.cron:
+        name: "copy certificates to nfs"
+        minute: "0"
+        hour: "4"
+        job: "cp /samu/swag/etc/letsencrypt/live/peikkoluola.com/* /samu/nfs-swag/peikkoluola.com-certificate/"
+

@@ -1,0 +1,120 @@
+# Create new vm with IP of 10.10.10.116
+---
+- hosts: localhost
+  connection: local
+  tasks:
+###
+    - name: checking extra_variables
+      fail:
+        msg: "you must define remote host with flag '-e host=1.2.3.4'"
+      when: host is not defined
+###
+    - add_host:
+        name: "{{ host }}"
+        groups: aws
+      changed_when: false
+
+- name: install uptime-kuma + swag
+  hosts: aws
+  become: yes
+  remote_user: admin #This is from aws debian ami
+  vars:
+    - username: admin
+    - location_compose_confs: "../aws-uptime/config/"
+    - ansible_ssh_private_key_file: "~/.ssh/aws.pem"
+  vars_prompt:
+    - name: cloudflare_email
+      prompt: Give cloudflare api email
+    - name: cloudflare_api_key
+      prompt: Give cloudflare api key
+
+  tasks:
+###
+    - name: update-upgrade-packages
+      apt:
+        update_cache: true
+        upgrade: safe
+    - name: install utilities
+      apt:
+        state: latest
+        pkg:
+          - nano
+          - tree
+          - screen
+          - htop
+          - ssh
+          - cron
+###
+    - name: add global bash aliases
+      blockinfile:
+        path: /etc/bash.bashrc
+        marker: "# ---ADDED BY ANSIBLE---"
+        state: present
+        block: |
+          alias ..='cd ..'
+          alias la='ls -lAhp --group-directories-first'
+          alias lar='la -R'
+          alias docker='sudo docker'
+          alias docker-compose='sudo docker-compose'
+          alias ip='ip --color'
+#    - name: Create a directory /samu
+#      ansible.builtin.file:
+#        path: /samu
+#        state: directory
+#        owner: '{{ username }}'
+#        group: '{{ username }}'
+#        mode: '0700'
+    - name: create folders in /samu/*
+      ansible.builtin.file:
+        path: /samu/{{ item }}
+        recurse: true
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "700"
+      with_items:
+        - swag/dns-conf
+###
+    - name: add cloudflare api key
+      blockinfile:
+        path: /samu/swag/dns-conf/cloudflare.ini
+        marker: "# ---ADDED BY ANSIBLE---"
+        state: present
+        create: true
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "600"
+        block: |
+          dns_cloudflare_email = "{{ cloudflare_email }}"
+          dns_cloudflare_api_key = "{{ cloudflare_api_key }}"
+#          dns_cloudflare_api_token = "{{ cloudflare_api_key }}"
+
+###
+    - name: Create symbolic link to /samu
+      ansible.builtin.file:
+        src: /samu
+        dest: /home/{{ username }}/samu
+        owner: "{{ username}}"
+        group: "{{ username}}"
+        state: link
+
+# Set nano to not add lines at end of files
+    - name: nano config
+      blockinfile:
+        path: /etc/nanorc
+        marker: "# ---ADDED BY ANSIBLE---"
+        state: present
+        block: |
+          set nonewlines
+          set autoindent
+# Install Docker
+    - name: import docker installation tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-docker.yaml
+
+# Copy configuration files from {{location_compose+confs}}
+# and docker-compose up -d --force-recreate and docker prune
+    - name: import tasks-update-containers (conf copy + docker-compose up)
+      import_tasks:
+        file: ../tasks/tasks-update-containers.yaml
+

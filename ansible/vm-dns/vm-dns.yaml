@@ -12,7 +12,7 @@
     - vm_ip: "10.10.10.110"
     - docker_network_subnet_CIDR: "10.10.10.0/24"
     - docker_network_name: "vlan10"
-    - location_compose_confs: "../vm-dns/configs/"
+    - location_compose_confs: "../vm-dns/config/"
 
   vars_prompt:
     - name: webpassword
