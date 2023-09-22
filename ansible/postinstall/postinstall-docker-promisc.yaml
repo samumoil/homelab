@@ -13,9 +13,6 @@
     username: sam
     vm_ip: "10.10.10.90"
   tasks:
-    - name: import vm tasks file
+    - name: import docker promiscuous install file
       import_tasks:
-        file: ../tasks/tasks-postinstall-vm.yaml
-    - name: import common tasks file
-      import_tasks:
-        file: ../tasks/tasks-postinstall-common.yaml
+        file: ../tasks/tasks-postinstall-docker-promisc.yaml

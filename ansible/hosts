@@ -1,5 +1,5 @@
 [postinstall]
-10.10.10.100
+10.10.10.90
 
 [local]
 localhost ansible_connection=local
