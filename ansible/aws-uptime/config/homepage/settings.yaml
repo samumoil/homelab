@@ -1,0 +1,12 @@
+---
+# For configuration options and examples, please see:
+# https://github.com/benphelps/homepage/wiki/Settings
+
+title: Peikkoluola
+theme: dark
+palette: stone
+headerStyle: boxed
+
+providers:
+  openweathermap: openweathermapapikey
+  weatherapi: weatherapiapikey

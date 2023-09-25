@@ -1,0 +1,30 @@
+---
+# For configuration options and examples, please see:
+# https://github.com/benphelps/homepage/wiki/Services
+
+- Linkkejä:
+    - Sää - Ilmatieteenlaitos:
+        icon: mdi-weather-partly-cloudy
+        href: https://www.ilmatieteenlaitos.fi/saa/siilinj%C3%A4rvi
+    - Sää - Foreca:
+        icon: mdi-weather-partly-cloudy
+        href: https://www.foreca.fi/Finland/Siilinjarvi/10vrk
+    - Bingel:
+        icon: mdi-cast-education
+        href: https://www.sanomapro.fi/bingel/
+    - Kirjasto:
+        icon: mdi-bookshelf
+        href: https://siilinjarvenkirjasto.finna.fi/
+    - Peda.net:
+        icon: mdi-school
+        href: https://peda.net/siilinjarvi/hamula
+
+- Muita juttuja:
+    - Peikkoluola:
+        icon: mdi-forest-outline
+        href: https://luola.peikkoluola.com/
+    - it-tools.tech:
+        icon: mdi-tools
+        href: https://it-tools.tech/
+        description: Collection of miscellaneous IT tools
+

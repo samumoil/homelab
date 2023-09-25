@@ -31,6 +31,7 @@ services:
       - PGID=1000
       - TZ=Europe/Helsinki
       - URL=peikkoluola.com
+      - EXTRA_DOMAINS=samumoila.net
       - VALIDATION=dns
       - SUBDOMAINS=wildcard
       - DNSPLUGIN=cloudflare #optional
