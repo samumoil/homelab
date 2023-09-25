@@ -1,0 +1,52 @@
+---
+# For configuration options and examples, please see:
+# https://github.com/benphelps/homepage/wiki/Services
+
+- Monitoring:
+    - Uptime Kuma - local:
+        href: https://uptime-kuma.peikkoluola.com/status/peikkoluola
+        widget:
+            type: uptimekuma
+            url: https://uptime-kuma.peikkoluola.com #without trailing slash
+            slug: peikkoluola
+    - Uptime Kuma - remote:
+        href: https://kuma.samumoila.net
+        widget:
+            type: uptimekuma
+            url: https://uptime-kuma.samumoila.net #without trailing slash
+            slug: local
+    - LibreSpeed:
+        href: https://librespeed.peikkoluola.com
+        #description: ...
+        #server: my-docker
+        #container: librespeed
+
+- Administration:
+    - Portainer:
+        href: https://portainer.peikkoluola.com
+    - Unifi:
+        href: https://unifi.peikkoluola.com
+    - PiHole:
+        href: https://pihole.peikkoluola.com/admin/login.php
+        widget:
+            type: pihole
+            url: https://pihole.peikkoluola.com
+            key: 80b59ca3f6a6cb92fa5d231ea2e4a1055c5fb3df79bc1ff884693b444958b419
+    - Proxmox:
+        href: https://proxmox.peikkoluola.com
+
+- Miscellaneous:
+    - Jellyfin:
+        href: https://jellyfin.peikkoluola.com
+        description: Musiikkia
+#        widget:
+#            type: jellyfin
+#            url: https://jellyfin.peikkoluola.com
+#            key: 4edc8f22ac4e408980ff99685cde3d3e
+
+    - TiddlyWiki:
+        href: https://wiki.peikkoluola.com
+        description: PeikkoWiki
+
+
+

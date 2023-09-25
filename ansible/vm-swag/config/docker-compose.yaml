@@ -34,6 +34,18 @@ services:
       - 80:80 #optional
     restart: unless-stopped
 ##############################
+  homepage:
+    image: ghcr.io/benphelps/homepage:latest
+    hostname: homepage
+    container_name: homepage
+    networks:
+     common:
+    ports:
+      - 3000:3000
+    volumes:
+      - /samu/homepage:/app/config # Make sure your local config directory exists
+    restart: unless-stopped
+##############################
   portainer-agent:
     container_name: portainer-agent
     hostname: portainer-agent

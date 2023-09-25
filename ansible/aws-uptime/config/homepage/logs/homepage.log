@@ -362,3 +362,58 @@ Data: {"type":"Buffer","data":[60,104,116,109,108,62,10,32,32,32,32,60,104,101,9
 ---------^
  9 |     text: toot
  10 | 
+[2023-09-25T19:44:28.436Z] info: services.yaml was copied to the config folder
+[2023-09-25T19:44:28.438Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:44:47.449Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:44:48.772Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:45:29.867Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:45:30.935Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:45:46.223Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:46:18.797Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:46:19.492Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:46:20.176Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:46:20.731Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:46:20.998Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:46:21.811Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:46:22.036Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:46:22.243Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:46:22.439Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:47:16.755Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:47:53.579Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:47:54.175Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:47:54.682Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:47:55.135Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:47:57.157Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:47:57.642Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:47:58.024Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:47:58.309Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:47:58.596Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:47:58.872Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:48:25.431Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:48:26.138Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:48:36.644Z] info: bookmarks.yaml was copied to the config folder
+[2023-09-25T19:50:30.608Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:50:30.670Z] error: <index> YAMLException: expected a single document in the stream, but found more
+    at Object.load$1 [as load] (file:///app/node_modules/.pnpm/js-yaml@4.1.0/node_modules/js-yaml/dist/js-yaml.mjs:2812:9)
+    at bookmarksResponse (/app/.next/server/pages/index.js:3222:69)
+    at async getStaticProps (/app/.next/server/pages/index.js:2718:23)
+    at async Object.renderToHTML (/app/node_modules/.pnpm/next@12.3.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/server/render.js:386:20)
+    at async doRender (/app/node_modules/.pnpm/next@12.3.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/server/base-server.js:687:38)
+    at async cacheEntry.responseCache.get.isManualRevalidate.isManualRevalidate (/app/node_modules/.pnpm/next@12.3.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/server/base-server.js:796:28)
+    at async /app/node_modules/.pnpm/next@12.3.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/server/response-cache/index.js:80:36
+[2023-09-25T19:50:30.942Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:51:17.406Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:51:17.639Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:51:17.842Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:51:39.120Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:51:40.143Z] error: expected a single document in the stream, but found more
+[2023-09-25T19:52:08.330Z] error: undefined
+[2023-09-25T19:52:08.352Z] error: undefined
+[2023-09-25T19:52:19.100Z] error: undefined
+[2023-09-25T19:52:19.112Z] error: undefined
+[2023-09-25T19:52:44.715Z] error: undefined
+[2023-09-25T19:52:44.729Z] error: undefined
+[2023-09-25T19:52:52.029Z] error: undefined
+[2023-09-25T19:52:52.040Z] error: undefined
+[2023-09-25T19:54:13.163Z] error: undefined
+[2023-09-25T19:54:13.183Z] error: undefined

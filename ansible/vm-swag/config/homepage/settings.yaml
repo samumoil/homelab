@@ -1,0 +1,18 @@
+---
+# For configuration options and examples, please see:
+# https://github.com/benphelps/homepage/wiki/Settings
+
+title: Peikkoluola
+theme: dark
+palette: stone
+headerStyle: boxed
+hideErrors: true
+
+providers:
+  openmeteo:
+    label: Siilinjärvi
+    latitude: 63.0833
+    longitude: 27.6667
+    Timezone: Europe/Helsinki
+    units: metric
+    cache: 5
