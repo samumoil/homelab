@@ -1,0 +1,15 @@
+---
+- name: update existing docker stuff
+  hosts: update
+  become: yes
+  vars:
+    - username: sam
+
+  tasks:
+    - name: update-upgrade-packages
+      apt:
+        update_cache: true
+        upgrade: safe
+
+    - name: reboot vm to sync system time
+      ansible.builtin.reboot:

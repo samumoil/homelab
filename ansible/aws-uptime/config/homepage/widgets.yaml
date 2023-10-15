@@ -10,9 +10,9 @@
     units: metric
     cache: 5
 
-- greeting:
-    text_size: xl
-    text: Minne haluaisit mennä?
+#- greeting:
+#    text_size: xl
+#    text: Minne haluaisit mennä?
 
 #- search:
 #    provider: duckduckgo

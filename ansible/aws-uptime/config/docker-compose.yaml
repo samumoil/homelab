@@ -30,8 +30,10 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Helsinki
-      - URL=peikkoluola.com
-      - EXTRA_DOMAINS=samumoila.net
+#      - URL=peikkoluola.com
+#      - EXTRA_DOMAINS=samumoila.net, *.samumoila.net
+      - URL=samumoila.net
+      - EXTRA_DOMAINS=peikkoluola.com, *.peikkoluola.com
       - VALIDATION=dns
       - SUBDOMAINS=wildcard
       - DNSPLUGIN=cloudflare #optional
@@ -42,4 +44,19 @@ services:
       common:
     ports:
       - 443:443
+      - 80:80
+    restart: unless-stopped
+#############################
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    hostname: homepage
+    container_name: homepage
+    networks:
+      common:
+    ports:
+      - 3000:3000
+    volumes:
+      - /samu/homepage:/app/config # Make sure your local config directory exists
+#      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integration
+#      - /samu:/samu:ro #For widget disk info 
     restart: unless-stopped

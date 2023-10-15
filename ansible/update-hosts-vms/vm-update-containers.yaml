@@ -1,0 +1,28 @@
+---
+- name: update existing docker stuff
+  hosts: update
+  become: yes
+  vars:
+    - username: sam
+
+  tasks:
+# Container creation
+    - name: pull container images from compose file
+      become_user: "{{ username }}"
+      command: "docker-compose pull"
+      args:
+        chdir: /samu/
+
+    - name: start container from compose file
+      become_user: "{{ username }}"
+      command: "docker-compose up -d --force-recreate"
+      args:
+        chdir: /samu/
+
+    - name: prune docker stuff
+      become_user: "{{ username }}"
+      command: "docker system prune -af --volumes"
+
+    # Finally a reboot for changes to take effect
+    - name: reboot machine
+      ansible.builtin.reboot:
