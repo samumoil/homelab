@@ -14,7 +14,7 @@
         groups: aws
       changed_when: false
 
-- name: install uptime-kuma + swag
+- name: install uptime-kuma + swag + homepage (peikkoluola.com)
   hosts: aws
   become: yes
   remote_user: admin #This is from aws debian ami
@@ -23,10 +23,12 @@
     - location_compose_confs: "../aws-uptime/config/"
     - ansible_ssh_private_key_file: "~/.ssh/aws.pem"
   vars_prompt:
-    - name: cloudflare_email
-      prompt: Give cloudflare api email
-    - name: cloudflare_api_key
-      prompt: Give cloudflare api key
+#    - name: cloudflare_email
+#      prompt: Give cloudflare api email
+#    - name: cloudflare_api_key
+#      prompt: Give cloudflare api key
+    - name: cloudflare_api_token
+      prompt: Give cloudflare api token
 
   tasks:
 ###
@@ -85,9 +87,9 @@
         group: "{{ username }}"
         mode: "600"
         block: |
-          dns_cloudflare_email = "{{ cloudflare_email }}"
-          dns_cloudflare_api_key = "{{ cloudflare_api_key }}"
-#          dns_cloudflare_api_token = "{{ cloudflare_api_key }}"
+          dns_cloudflare_api_token = "{{ cloudflare_api_token }}"
+#          dns_cloudflare_email = "{{ cloudflare_email }}"
+#          dns_cloudflare_api_key = "{{ cloudflare_api_key }}"
 
 ###
     - name: Create symbolic link to /samu
