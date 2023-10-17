@@ -31,7 +31,6 @@
         - redshift-gtk
         - git
         - ansible
-#        - midori
         - geany
         - conky
         - zsh
@@ -51,6 +50,10 @@
       args:
         chdir: /home/{{ username }}/.config/
 
+    - name: change default shell of user to zsh
+      become: yes
+      command:
+        cmd: "chsh -s /usr/bin/zsh {{ username }}"
 
 # Vielä nämä jotenkin lisätä, desktop:
 # SSH avainten kopiointi 
