@@ -53,3 +53,12 @@
     block: |
       set nonewlines
       set autoindent
+      set atblanks
+      set indicator
+      set minibar
+      set tabstospaces
+      set zap
+      set tabsize 4
+      bind ^H chopwordleft main
+      bind Sh-M-C "{execute}|xsel -ib{enter}{undo}" main
+      include /home/sam/.nanorc.d/*.nanorc
