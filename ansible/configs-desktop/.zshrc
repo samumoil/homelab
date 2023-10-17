@@ -14,6 +14,7 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+### Default prompt
 #PROMPT='%F{green}%n%f in %F{cyan}%~%f %# '
 
 # Color settings:
@@ -21,18 +22,9 @@ compinit
 # Bolding:
 # %B...%b
 
-# Set up the prompt (with git branch name)
-#setopt PROMPT_SUBST
-
 PROMPT='@%F{green}%m%f in %F{cyan}${PWD/#$HOME/~}%f %F{red}${vcs_info_msg_0_}%f
 $ '
 
-# Load version control information
-#autoload -Uz vcs_info
-#precmd() { vcs_info }
-
-# Format the vcs_info_msg_0_ variable
-#zstyle ':vcs_info:git:*' formats 'on %b'
 
 alias ..='cd ..'
 alias la='ls -lAhp --group-directories-first --color=auto'
@@ -41,6 +33,7 @@ alias docker='sudo docker'
 alias docker-compose='sudo docker-compose'
 alias ip='ip --color'
 
+### This is from guide https://salferrarello.com/zsh-git-status-prompt/
 # Autoload zsh add-zsh-hook and vcs_info functions (-U autoload w/o substition, -z use zsh style)
 autoload -Uz add-zsh-hook vcs_info
 # Enable substitution in the prompt.
