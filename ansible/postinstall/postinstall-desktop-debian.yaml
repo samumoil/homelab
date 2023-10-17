@@ -1,9 +1,5 @@
-﻿# Use '-K' flag to prompt for sudo password
+# Use '-K' flag to prompt for sudo password
 # ansible-playbook -K <<filename>>
-# If Debian 12 was installed, you possibly need to run:
-# sudo dpkg --purge raspi-firmware
-# This is needed because for some reason Debian 12 GUI
-# installer installs raspi-firmware stuff (on laptops?)
 #
 # Also you may want to update grub for TIMEOUT=0
 # /etc/default/grub
@@ -33,11 +29,12 @@
         - ansible
         - geany
         - conky
-        - zsh
         - glances
         - flatpak
         - gnome-software-plugin-flatpak
+        - xsel # nano clipboard copy compatibility
 ###
+
     - name: copy configuration files to home
       copy:
         src: ../configs-desktop/
@@ -56,6 +53,11 @@
       become: yes
       command:
         cmd: "chsh -s /usr/bin/zsh {{ username }}"
+
+    - name: add default flatpak repo
+      become: yes
+      command:
+        cmd: "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
 
 # Vielä nämä jotenkin lisätä, desktop:
 # SSH avainten kopiointi 

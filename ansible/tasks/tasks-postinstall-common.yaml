@@ -17,6 +17,7 @@
       - samba
       - nfs-common
       - cifs-utils
+      - zsh
 - name: add global bash aliases
   blockinfile:
     path: /etc/bash.bashrc
@@ -24,11 +25,12 @@
     state: present
     block: |
       alias ..='cd ..'
-      alias la='ls -lAhp --group-directories-first'
+      alias la='ls -lAhp --group-directories-first --color=auto'
       alias lar='la -R'
       alias docker='sudo docker'
       alias docker-compose='sudo docker-compose'
       alias ip='ip --color'
+      alias tree='tree -CF --dirsfirst'
 - name: Create a directory /samu
   ansible.builtin.file:
     path: /samu
@@ -62,3 +64,8 @@
       bind ^H chopwordleft main
       bind Sh-M-C "{execute}|xsel -ib{enter}{undo}" main
       include /home/sam/.nanorc.d/*.nanorc
+
+- name: change default shell of user to zsh
+  become: yes
+  command:
+    cmd: "chsh -s /usr/bin/zsh {{ username }}"
