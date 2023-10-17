@@ -35,6 +35,8 @@
         - conky
         - zsh
         - glances
+        - flatpak
+        - gnome-software-plugin-flatpak
 ###
     - name: copy configuration files to home
       copy:

@@ -17,7 +17,6 @@
       - samba
       - nfs-common
       - cifs-utils
-# This file is maybe bunsenlabs specific. Check /etc/profile if unsure.
 - name: add global bash aliases
   blockinfile:
     path: /etc/bash.bashrc
