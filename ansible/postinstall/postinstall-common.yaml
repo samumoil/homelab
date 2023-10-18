@@ -2,7 +2,7 @@
 # ansible-playbook -K <<filename>>
 ---
 - name: postinstall common stuff
-  hosts: postinstall
+  hosts: local
   become: yes
   vars:
     username: sam
@@ -12,6 +12,8 @@
         src: configs/
         dest: /home/{{ username }}/
         mode: '0740'
+        owner: "{{ username }}"
+        group: "{{ username }}"
     - name: import common tasks file
       import_tasks:
         file: ../tasks/tasks-postinstall-common.yaml

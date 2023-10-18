@@ -63,7 +63,7 @@
       set tabsize 4
       bind ^H chopwordleft main
       bind Sh-M-C "{execute}|xsel -ib{enter}{undo}" main
-      include /home/sam/.nanorc.d/*.nanorc
+      include /home/{{ username }}/.config/nanorc.d/*.nanorc
 
 - name: change default shell of user to zsh
   become: yes
