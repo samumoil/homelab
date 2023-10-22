@@ -63,9 +63,17 @@
       set tabsize 4
       bind ^H chopwordleft main
       bind Sh-M-C "{execute}|xsel -ib{enter}{undo}" main
-      include /home/sam/.nanorc.d/*.nanorc
+      include /home/{{ username }}/.config/nanorc.d/*.nanorc
 
 - name: change default shell of user to zsh
   become: yes
   command:
     cmd: "chsh -s /usr/bin/zsh {{ username }}"
+
+- name: copy config files
+  ansible.builtin.copy:
+    src: ../postinstall/configs/
+    dest: /home/{{ username }}/
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0740'

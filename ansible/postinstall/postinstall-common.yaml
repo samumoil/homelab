@@ -7,11 +7,6 @@
   vars:
     username: sam
   tasks:
-    - name: copy config files
-      ansible.builtin.copy:
-        src: configs/
-        dest: /home/{{ username }}/
-        mode: '0740'
     - name: import common tasks file
       import_tasks:
         file: ../tasks/tasks-postinstall-common.yaml
