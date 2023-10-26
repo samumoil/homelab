@@ -15,7 +15,7 @@
       - htop
       - ssh
       - samba
-      - nfs-common
+      - nfs-common #nfs-utils in fedora
       - cifs-utils
       - zsh
 - name: add global bash aliases
