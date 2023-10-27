@@ -2,7 +2,7 @@
 # ansible-playbook -K <<filename>>
 ---
 - name: postinstall common stuff
-  hosts: local
+  hosts: postinstall
   become: yes
   vars:
     username: sam

@@ -1,3 +1,19 @@
+*** apps to be installed at setup: ***
+greetd sway waybar clipman blueman light imv dunst kanshi thunar rofi grimshot pulseaudio mate-polkit qtwayland5 qt6-wayland wpasupplicant network-manager fonts-font-awesome 
+
+
+network-manager-gnome
+# dunst = notification daemon
+# kanshi = display configuration tool
+# imv = CLI image viewer
+# rofi = application launcher
+# grimshot = screenshot utility
+# mate-polkit = agent to ask for root privileges when needed
+
+
+# Must have list from hyprland site
+https://wiki.hyprland.org/Useful-Utilities/Must-have/
+
 Waybar:
 - Look for readymade configurations
 
@@ -8,3 +24,62 @@ Wallpaper:
 - Put it in here and point sway configuration to that
 
 Check Fedora Sway Spin configuration files for added apps
+
+# Base Debian installation:
+
+# Locales
+- Uncomment finnish locale in /etc/locale.gen
+- Run $ sudo locale-gen && sudo update-locale
+
+# APT sources.list
+Add "contrib non-free" to /etc/sources.list
+
+# ... and this for setting XDG_SESSION_TYPE=wayland
+https://man.sr.ht/~kennylevinsen/greetd/#how-to-set-xdg_session_typewayland
+
+
+
+***Login manager***
+sudo apt install greetd
+
+
+# Polkit authentication for windows needing root priviledges:
+https://www.reddit.com/r/linuxquestions/comments/x1d6k6/polkit_authentication_agent_for_wayland/
+mate-polkit 
+
+add in sway config:
+# CHANGE PROPER FILEPATH
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+
+
+
+# GRUB
+# DEFAULT_TIMEOUT=0 and GRUB_DISABLE_OS_PROBER=false
+/etc/default/grub
+
+# Comment out:
+#if [ "\${timeout}" = 0 ]; then
+#  set timeout=10
+#fi
+/etc/grub.d/30_os-prober
+
+sudo update-grub
+
+
+*** Login manager ***
+# Check this for greetd autologin...
+https://man.sr.ht/~kennylevinsen/greetd/#setting-up-auto-login
+
+* Autologin *
+sudo apt install greetd
+sudo nano /etc/greetd/config.toml
+# append to end:
+[initial_session]
+command = "/usr/bin/zsh"
+user = "sam"
+# If you want to autologin to sway:
+[initial_session]
+command = "sway-run"
+user = "sam"
+

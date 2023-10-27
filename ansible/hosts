@@ -5,8 +5,7 @@
 10.10.10.222
 
 [postinstall]
-10.10.10.90
-10.10.10.91
+192.168.1.210
 
 [local]
 localhost ansible_connection=local
