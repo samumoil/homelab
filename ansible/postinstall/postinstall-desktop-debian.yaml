@@ -10,7 +10,7 @@
   vars:
     - username: "sam"
   become: yes
-  ### Change to whatever applicable user    
+  ### Change to whatever applicable user
   tasks:
 
     - name: import common tasks file
@@ -49,17 +49,12 @@
       args:
         chdir: /home/{{ username }}/.config/
 
-    - name: change default shell of user to zsh
-      become: yes
-      command:
-        cmd: "chsh -s /usr/bin/zsh {{ username }}"
-
     - name: add default flatpak repo
       become: yes
       command:
         cmd: "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
 
 # Vielä nämä jotenkin lisätä, desktop:
-# SSH avainten kopiointi 
+# SSH avainten kopiointi
 # 1password asennus
 # fstab smb/cifs truenas automaattisesti

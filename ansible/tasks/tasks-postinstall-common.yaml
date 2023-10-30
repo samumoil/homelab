@@ -31,6 +31,19 @@
       alias docker-compose='sudo docker-compose'
       alias ip='ip --color'
       alias tree='tree -CF --dirsfirst'
+- name: add global zsh aliases
+  blockinfile:
+    path: /etc/zsh/zshrc
+    marker: "# ---ADDED BY ANSIBLE---"
+    state: present
+    block: |
+      alias ..='cd ..'
+      alias la='ls -lAhp --group-directories-first --color=auto'
+      alias lar='la -R'
+      alias docker='sudo docker'
+      alias docker-compose='sudo docker-compose'
+      alias ip='ip --color'
+      alias tree='tree -CF --dirsfirst'
 - name: Create a directory /samu
   ansible.builtin.file:
     path: /samu
