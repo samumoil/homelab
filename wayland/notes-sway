@@ -20,7 +20,8 @@ fonts-font-awesome \
 xwayland \
 network-manager-gnome \
 fuzzel \
-unrar
+unrar \
+unzip
 
 # dunst = notification daemon
 # kanshi = display configuration tool
@@ -32,10 +33,6 @@ unrar
 
 # Must have list from hyprland site
 https://wiki.hyprland.org/Useful-Utilities/Must-have/
-
-Wallpaper:
-- Find good wallpaper
-- Put it in here and point sway configuration to that
 
 Check Fedora Sway Spin configuration files for added apps
 
