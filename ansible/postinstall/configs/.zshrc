@@ -54,6 +54,21 @@ zstyle ':vcs_info:*' stagedstr ' +++'
 zstyle ':vcs_info:git:*' formats       '(%b%u%c)'
 zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c)'
 
+# Ctrl+Backspace: kill the word backward
+bindkey -M emacs '^H' backward-kill-word
+bindkey -M viins '^H' backward-kill-word
+bindkey -M vicmd '^H' backward-kill-word
+
+# Ctrl+Delete: kill the word forward
+bindkey -M emacs '^[[3;5~' kill-word
+bindkey -M viins '^[[3;5~' kill-word
+bindkey -M vicmd '^[[3;5~' kill-word
+
+# Enable Ctrl+arrow key bindings for word jumping
+bindkey '^[[1;5C' forward-word     # Ctrl+right arrow
+bindkey '^[[1;5D' backward-word    # Ctrl+left arrow
+
+
 # Aliases
 alias ..='cd ..'
 alias la='ls -lAhp --group-directories-first --color=auto'
@@ -62,3 +77,5 @@ alias docker='sudo docker'
 alias docker-compose='sudo docker-compose'
 alias ip='ip --color'
 alias tree='tree -CF --dirsfirst'
+alias ssh='env TERM=xterm ssh'
+alias imv='imv-wayland'
