@@ -73,6 +73,7 @@
       set minibar
       set tabstospaces
       set zap
+      set afterends
       set tabsize 4
       bind ^H chopwordleft main
       bind Sh-M-C "{execute}|xsel -ib{enter}{undo}" main
@@ -90,3 +91,19 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: '0740'
+
+# Make sure $HOME/bin and $HOME/.local/bin are added to $PATH
+- name: /etc/zsh/zshenv $PATH addition
+  blockinfile:
+    path: /etc/zsh/zshenv
+    marker: "# ---ADDED BY ANSIBLE---"
+    state: present
+    block: |
+      # set PATH so it includes user's private bin if it exists
+      if [ -d "$HOME/bin" ] ; then
+          PATH="$HOME/bin:$PATH"
+      fi
+      # set PATH so it includes user's private bin if it exists
+      if [ -d "$HOME/.local/bin" ] ; then
+          PATH="$HOME/.local/bin:$PATH"
+      fi

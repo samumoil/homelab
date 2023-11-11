@@ -1,6 +1,8 @@
 *** apps to be installed at setup: ***
 greetd \
 sway \
+swayidle \
+swaylock \
 waybar \
 clipman \
 blueman \
@@ -11,17 +13,19 @@ kanshi \
 thunar \
 grimshot \
 pulseaudio \
+pavucontrol \
 mate-polkit \
 qtwayland5 \
 qt6-wayland \
 wpasupplicant \
 network-manager \
 fonts-font-awesome \
+fonts-material-design-icons-iconfont \
 xwayland \
 network-manager-gnome \
 fuzzel \
 unrar \
-unzip
+unzip 
 
 # dunst = notification daemon
 # kanshi = display configuration tool
@@ -29,7 +33,7 @@ unzip
 # fuzzel = application launcher
 # grimshot = screenshot utility
 # mate-polkit = agent to ask for root privileges when needed
-
+# geeqie = imageviewer
 
 # Must have list from hyprland site
 https://wiki.hyprland.org/Useful-Utilities/Must-have/
@@ -78,4 +82,8 @@ user = "sam"
 [initial_session]
 command = "sway-run"
 user = "sam"
+
+
+# install onedriver for OneDrive compatibility:
+https://github.com/jstaf/onedriver
 
