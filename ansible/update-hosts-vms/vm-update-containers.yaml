@@ -7,6 +7,10 @@
 
   tasks:
 # Container creation
+    - name: prune docker stuff first to free space
+      become_user: "{{ username }}"
+      command: "docker system prune -af --volumes"
+
     - name: pull container images from compose file
       become_user: "{{ username }}"
       command: "docker-compose pull"
@@ -19,7 +23,7 @@
       args:
         chdir: /samu/
 
-    - name: prune docker stuff
+    - name: prune docker stuff last to free space
       become_user: "{{ username }}"
       command: "docker system prune -af --volumes"
 

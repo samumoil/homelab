@@ -67,7 +67,7 @@ mate-polkit
 sudo update-grub
 
 
-*** Login manager ***
+*** Login manager for clean Debian install***
 # Check this for greetd autologin...
 # https://man.sr.ht/~kennylevinsen/greetd/#setting-up-auto-login
 
@@ -87,3 +87,5 @@ user = "sam"
 # install onedriver for OneDrive compatibility:
 https://github.com/jstaf/onedriver
 
+# Add this to installation ansible script to set minimun brightness, run as user:
+light -N 5
