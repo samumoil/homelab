@@ -5,10 +5,9 @@
     // "width": 1280, // Waybar width
     //"spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad", "custom/media"],
+    "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    //"modules-right": ["mpd", "idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state", "battery", "battery#bat2", "clock", "tray"],
-    "modules-right": ["idle_inhibitor", "temperature", "cpu", "memory", "pulseaudio", "backlight", "battery", "battery#bat2", "network", "tray", "clock"],
+    "modules-right": ["idle_inhibitor", "temperature", "cpu", "memory", "pulseaudio", "backlight", "battery", "network", "tray", "clock"],
     // Modules configuration
     // "sway/workspaces": {
     //     "disable-scroll": true,
@@ -26,28 +25,23 @@
     //         "default": ""
     //     }
     // },
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
-        }
-    },
+    //"sway/mode": {
+    //    "format": "<span style=\"italic\">{}</span>"
+    //},
     "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
+        "format": "{}",
+        "max-length": 50
     },
     "sway/window": {
         "text-align": "center"
     },
-    "sway/scratchpad": {
-        "format": "{icon} {count}",
-        "show-empty": false,
-        "format-icons": ["", ""],
-        "tooltip": true,
-        "tooltip-format": "{app}: {title}"
-    },
+    //"sway/scratchpad": {
+    //    "format": "{icon} {count}",
+    //    "show-empty": false,
+    //    "format-icons": ["", ""],
+    //    "tooltip": true,
+    //    "tooltip-format": "{app}: {title}"
+    //},
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
@@ -66,7 +60,6 @@
     },
     "cpu": {
         "format": " {usage}%",
-//        "tooltip": false
     },
     "memory": {
         "format": " {}%"
@@ -99,9 +92,6 @@
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]
     },
-    "battery#bat2": {
-        "bat": "BAT2"
-    },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
@@ -130,17 +120,5 @@
         },
         "on-click": "pavucontrol"
     },
-    "custom/media": {
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-    }
 }
 
