@@ -1,5 +1,5 @@
 ---
-- name: update existing docker stuff
+- name: update vm systems
   hosts: update
   become: yes
   vars:
