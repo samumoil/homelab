@@ -73,7 +73,6 @@
       set minibar
       set tabstospaces
       set zap
-      set afterends
       set tabsize 4
       bind ^H chopwordleft main
       bind Sh-M-C "{execute}|xsel -ib{enter}{undo}" main
