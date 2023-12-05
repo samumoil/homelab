@@ -35,7 +35,7 @@ services:
     restart: unless-stopped
 ##############################
   homepage:
-    image: ghcr.io/benphelps/homepage:latest
+    image: ghcr.io/gethomepage/homepage:latest
     hostname: homepage
     container_name: homepage
     networks:
