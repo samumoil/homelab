@@ -33,7 +33,7 @@ services:
 #      - URL=peikkoluola.com
 #      - EXTRA_DOMAINS=samumoila.net, *.samumoila.net
       - URL=samumoila.net
-      - EXTRA_DOMAINS=peikkoluola.com, *.peikkoluola.com
+      - EXTRA_DOMAINS=peikkoluola.com, *.peikkoluola.com, seppomoilanen.com, *.seppomoilanen.com
       - VALIDATION=dns
       - SUBDOMAINS=wildcard
       - DNSPLUGIN=cloudflare #optional
