@@ -1,0 +1,83 @@
+# Create new vm with IP of 10.10.10.116
+---
+- name: install plausible server
+  hosts: plausible
+  become: yes
+  vars:
+    - username: sam
+    - vm_ip: "10.10.10.118"
+    - docker_network_subnet_CIDR: "10.10.10.0/24"
+    - docker_network_name: "vlan10"
+    - location_compose_confs: "../vm-plausible/config/"
+
+  tasks:
+# Install qemu guest agent and configure /etc/interfaces with promisc mode
+# This is first because it begins with reboot for system time
+    - name: import vm tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-vm.yaml
+###
+    - name: import common tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-common.yaml
+###
+    - name: install rsync + cron
+      apt:
+        state: latest
+        pkg:
+          - rsync
+          - cron
+###
+    - name: create folders in /samu/*
+      ansible.builtin.file:
+        path: /samu/{{ item }}
+        recurse: true
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "770"
+      with_items:
+        - plausible
+
+###
+#    - name: add cifs/samba details to /etc/fstab
+#      blockinfile:
+#        path: /etc/fstab
+#        marker: "# ---ADDED BY ANSIBLE---"
+#        state: present
+#        block: |
+#          10.10.10.122:/mnt/nas-ssd/app-databases/portainer /samu/portainer nfs rw 0 0
+#          10.10.10.122:/mnt/nas-ssd/app-databases/unifi /samu/unifi nfs rw 0 0
+#          10.10.10.122:/mnt/nas-ssd/app-databases/uptime-kuma /samu/uptime-kuma-nfs nfs rw 0 0
+
+# Install Docker
+    - name: import docker installation tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-docker.yaml
+
+# Copy old database files from nfs to VM.
+# This needs reboot beforehand because we're using fstab to mount
+# nfs share. Previous step (docker installation task) includes reboot.
+#    - name: populate uptime kuma database
+#      ansible.builtin.copy:
+#        src: /samu/uptime-kuma-nfs/
+#        remote_src: true
+#        dest: /samu/uptime-kuma/
+
+# Copy configuration files from {{location_compose+confs}}
+# and docker-compose up -d --force-recreate and docker prune
+    - name: import tasks-update-containers (conf copy + docker-compose up)
+      import_tasks:
+        file: ../tasks/tasks-update-containers.yaml
+
+#    - name: Make backup script executable
+#      ansible.builtin.file:
+#        path: /samu/backup.sh
+#        mode: '0755'
+
+# Add crontab entry for uptime kuma database backup script
+#    - name: add crontab entry for uptime kuma database backup
+#      cron:
+#        name: "backup uptime kuma database"
+#        minute: "1"
+#        job: "/samu/backup.sh"

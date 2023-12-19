@@ -11,7 +11,7 @@
   become: yes
   vars:
     username: sam
-    vm_ip: "10.10.10.90"
+    vm_ip: "10.10.10.118"
   tasks:
     - name: import vm tasks file
       import_tasks:
