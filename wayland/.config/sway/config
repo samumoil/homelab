@@ -72,6 +72,7 @@ output * bg $HOME/.config/sway/config.d/chosen_wallpaper/* fill
        dwt enabled
        tap enabled
        middle_emulation enabled
+       pointer_accel 0.5
    }
 
    input type:keyboard {
