@@ -68,6 +68,13 @@ bindkey -M vicmd '^[[3;5~' kill-word
 bindkey '^[[1;5C' forward-word     # Ctrl+right arrow
 bindkey '^[[1;5D' backward-word    # Ctrl+left arrow
 
+# Enable Home, End and Delete keys to function as expected
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
+bindkey  "^[[3~"  delete-char
+
+# Allow "cd ../" autocompletion
+zstyle ':completion:*' special-dirs true
 
 # Aliases
 alias ..='cd ..'
