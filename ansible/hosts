@@ -6,7 +6,7 @@
 aws
 
 [postinstall]
-10.10.10.118
+10.10.10.102
 
 [local]
 localhost ansible_connection=local

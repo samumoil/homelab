@@ -18,6 +18,7 @@
       - nfs-common #nfs-utils in fedora
       - cifs-utils
       - zsh
+      # - fuzzel #for fedora sway
 - name: add global bash aliases
   blockinfile:
     path: /etc/bash.bashrc
@@ -33,6 +34,7 @@
       alias tree='tree -CF --dirsfirst'
 - name: add global zsh aliases
   blockinfile:
+    #path: /etc/zshrc #in fedora sway
     path: /etc/zsh/zshrc
     marker: "# ---ADDED BY ANSIBLE---"
     state: present
@@ -94,6 +96,7 @@
 # Make sure $HOME/bin and $HOME/.local/bin are added to $PATH
 - name: /etc/zsh/zshenv $PATH addition
   blockinfile:
+    #path: /etc/zshenv #in fedora sway
     path: /etc/zsh/zshenv
     marker: "# ---ADDED BY ANSIBLE---"
     state: present
