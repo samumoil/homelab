@@ -1,0 +1,2 @@
+# Allow root access to X server (for example gparted needed this):
+xhost +SI:localuser:root

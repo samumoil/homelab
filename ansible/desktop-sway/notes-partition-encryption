@@ -1,0 +1,11 @@
+# /etc/crypttab has UUIDs of encrypted partitions.
+# Note "luks-" in front of first UUID.
+luks-bacf5b44-9254-4cda-bfd0-ae7bb624def0 UUID=bacf5b44-9254-4cda-bfd0-ae7bb624def0 none discard
+luks-481410f7-b332-4ce9-b8aa-4138daedff8f UUID=481410f7-b332-4ce9-b8aa-4138daedff8f none discard
+
+# /etc/crypttab.keyfile contains plaintext password for encrypted 
+# (second) partition.
+
+# Finally, run this command with your parameters.
+cryptsetup -v luksOpen /dev/<your_harddrive> luks-<partition_UUID> \
+--key-file=/etc/crypttab.keyfile
