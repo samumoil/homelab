@@ -79,7 +79,9 @@ zstyle ':completion:*' special-dirs true
 # Aliases
 alias ..='cd ..'
 alias la='ls -lAhp --group-directories-first --color=auto'
+alias l='ls -lhp --group-directories-first --color=auto'
 alias lar='la -R'
+alias lr='l -R'
 alias docker='sudo docker'
 alias docker-compose='sudo docker-compose'
 alias ip='ip --color'
