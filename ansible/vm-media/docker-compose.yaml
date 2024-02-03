@@ -8,6 +8,27 @@ networks:
 
 services:
 ############################################
+  firefox:
+    image: jlesage/firefox
+    container_name: firefox
+    hostname: firefox
+    restart: unless-stopped
+    networks:
+      common:
+    ports:
+      - "5800:5800"
+    volumes:
+      - "/samu/app-databases/firefox-container:/config:rw"
+    environment:
+      - DARK_MODE=1
+      - TZ=Europe/Helsinki
+      - KEEP_APP_RUNNING=1
+      - SECURE_CONNECTION=1
+      - FF_OPEN_URL=https://orteil.dashnet.org/cookieclicker/
+      - FF_KIOSK=1
+      - DISPLAY_WIDTH=1280
+      - DISPLAY_HEIGHT=800
+############################################
   jellyfin:
     hostname: jellyfin
     image: lscr.io/linuxserver/jellyfin:latest

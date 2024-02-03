@@ -1,0 +1,78 @@
+# Create new vm with IP of 10.10.10.222
+---
+- name: media stack installation
+  hosts: media
+  become: yes
+  vars:
+    - username: sam
+    - vm_ip: "10.10.10.222"
+    - docker_network_subnet_CIDR: "10.10.10.0/24"
+    - docker_network_name: "vlan10"
+    - location_compose_confs: "../vm-media/docker-compose.yaml"
+
+  vars_prompt:
+    - name: smb_user
+      prompt: Give samba user account, default is
+      private: no
+      default: "services"
+    - name: smb_pswd
+      prompt: Give password for samba user
+
+  tasks:
+# Install qemu guest agent and configure /etc/interfaces with promisc mode
+# This is first because it begins with reboot for system time
+###
+    - name: import vm tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-vm.yaml
+###
+    - name: import common tasks file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-common.yaml
+###
+    - name: create folders in /samu/*
+      ansible.builtin.file:
+        path: /samu/{{ item }}
+        recurse: true
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "770"
+      with_items:
+        - app-databases
+        - smb-cloud-ssd
+###
+    - name: add cifs/samba details to /etc/fstab
+      blockinfile:
+        path: /etc/fstab
+        marker: "# ---ADDED BY ANSIBLE---"
+        state: present
+        block: |
+          //10.10.10.122/cloud-ssd /samu/smb-cloud-ssd cifs credentials=/samu/.smb_credentials,uid=1000,gid=1000,rw,iocharset=utf8 0 0
+          10.10.10.122:/mnt/nas-ssd/app-databases /samu/app-databases nfs rw 0 0
+
+# This is after common tasks because /samu is created now. 
+# Also, postinstall docker stuff includes reboot (to activate mount)
+    - name: add samba credentials
+      blockinfile:
+        path: /samu/.smb_credentials
+        state: present
+        create: yes
+        mode: 0000
+        owner: root
+        group: root
+        block: |
+          username={{ smb_user }}
+          password={{ smb_pswd }}
+
+# Install docker and add docker networks
+    - name: import docker install/conf file
+      import_tasks:
+        file: ../tasks/tasks-postinstall-docker.yaml
+#        file: ../tasks/tasks-postinstall-docker-promisc.yaml
+
+# Copy configuration files from {{location_compose+confs}}
+# and docker-compose up -d --force-recreate and docker prune
+    - name: import tasks-update-containers (conf copy + docker-compose up)
+      import_tasks:
+        file: ../tasks/tasks-update-containers.yaml
