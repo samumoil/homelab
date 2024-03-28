@@ -1,0 +1,4 @@
+# Install these to get Thunar remote filesystem support:
+gvfs
+sshfs
+gvfs-smb
