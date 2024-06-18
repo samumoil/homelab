@@ -10,8 +10,8 @@ sudo dnf install \
   https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
   https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-# Thunar samba, nfs and ftp access
-sudo dnf install gvfs-smb gvfs-nfs 
+# Thunar samba, nfs, ftp, android and digicam access
+sudo dnf install gvfs-smb gvfs-nfs gvfs-mtp gvfs-gphoto2
 
 # After installing RPM Fusion, use better multimedia packages (https://itsfoss.com/install-nvidia-drivers-fedora/)
 sudo dnf groupupdate multimedia --allowremoval --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
