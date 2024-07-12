@@ -8,7 +8,6 @@ If you have trouble updating system after that guide, use
 `dnf update --exclude=kernel*`  
 `lsblk`  
 
-
 1) Create new GPT label on the disk  
 `parted /dev/sda mklabel gpt`
 
@@ -30,7 +29,6 @@ With gzip compression.
 `zfs create -o compression=gzip extbackup1/gzip`  
 With gzip and encryption. Prompt for passphrase.  
 `zfs create -o compression=gzip -o encryption=on -o keylocation=prompt -o keyformat=passphrase extbackup1/private`
-
 
 ## Additional commands to use with zfs
 Check filesystem space usage:  
@@ -59,7 +57,7 @@ Create timestamped snapshots:
 Access created snapshots (CLI autofill will NOT find `.zfs/snapshot/`):  
 `cd extbackup1/private/.zfs/snapshot/`
 
-Delete snapshots:
+Delete snapshots:  
 `zfs destroy extbackup1/private@2024-07-11-2226`  
 
 
