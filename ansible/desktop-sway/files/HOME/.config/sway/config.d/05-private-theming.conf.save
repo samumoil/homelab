@@ -1,0 +1,2 @@
+# Change cursor theme and size
+seat * xcursor_theme Adwaita 50

@@ -1,3 +1,11 @@
+0) Shutdown pcloud app.
+1) Connect external hdd with zfs and open encryption.
+2) Check available disk space. If not enough for a full copy, remove oldest snapshot.
+3) Start screen session. (´screen -S rsync´)
+4) Copy files.
+5) Create new snapshot.
+6) Detach/export zpool.
+
 rsync -havP --delete /home/sam/pCloudDrive/ /varmuusvarasto1/salainen/pcloud/
 
 
