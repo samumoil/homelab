@@ -21,6 +21,10 @@
     - Latukartta - Siilinjärvi:
         icon: mdi-map
         href: https://ladulle.fi/ladut/siilinjarvi
+    - Kouluruoka - Siilinjärvi:
+        icon: mdi-food
+        href: https://aromimenu.cgisaas.fi/SiilinjarviAromieMenus/FI/Default/Siilinjarvi/HamulaK/Restaurant.aspx
+
 
 - Muita juttuja:
     - Peikkoluola:
