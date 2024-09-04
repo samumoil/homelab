@@ -185,13 +185,15 @@
     libreoffice
     zoom-us
     ffmpegthumbnailer
-    poppler 	# Thunar pdf thumbnail render
+    poppler	# Thunar pdf thumbnail render
     whatsapp-for-linux
     jetbrains.idea-community
     microsoft-edge
     distrobox
     transmission
     virtio-win # Virt-manager windows guest compatibility
+    #bat # pretty 'cat' replacement
+    #bat-extras.*
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
