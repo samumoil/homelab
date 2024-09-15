@@ -155,7 +155,7 @@
   };
 
   programs = {
-    firefox.enable = true;
+#    firefox.enable = true;
     git.enable = true;
     _1password-gui.enable = true;
     gnome-disks.enable = true;
@@ -165,12 +165,12 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     wget
-    librewolf
+#    librewolf
     tree
     btop
     geany
     libreoffice
-    chromium
+#    chromium
     discord
     OSCAR
     freetube
@@ -182,13 +182,12 @@
     CuboCore.coreshot                    
     CuboCore.coreimage
     CuboCore.corearchiver                       
-    libreoffice
     zoom-us
     ffmpegthumbnailer
     poppler	# Thunar pdf thumbnail render
     whatsapp-for-linux
-    jetbrains.idea-community
-    microsoft-edge
+#    jetbrains.idea-community
+#    microsoft-edge
     distrobox
     transmission
     virtio-win # Virt-manager windows guest compatibility

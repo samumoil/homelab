@@ -1,0 +1,7 @@
+{ ... }: {
+  services = {
+    pcscd = {
+      enable = true;
+    };
+  };
+}

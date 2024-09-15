@@ -1,0 +1,7 @@
+{ ... }: {
+  imports = [
+    ./basic
+    ./desktop
+    ./programming
+  ];
+}

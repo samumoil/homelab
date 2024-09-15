@@ -1,0 +1,11 @@
+{
+    "initial_working_directory": "~",
+    "editor_theme": "Breeze Dark",
+    "pdf_previewer": "none",
+    "posix_terminal_shell": "custom",
+    "custom_shell_command": "/run/current-system/sw/bin/fish",
+    "help_font_size_points": 10,
+    "font_size_points": 10,
+    "jobs_tab_visibility": "shown",
+    "global_theme": "alternate"
+}

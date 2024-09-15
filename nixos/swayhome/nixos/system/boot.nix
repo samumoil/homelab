@@ -1,0 +1,68 @@
+{
+  config,
+  pkgs,
+  ...
+}:
+with config;
+with pkgs;
+{
+  boot = {
+    consoleLogLevel = 0;
+    initrd = {
+      availableKernelModules = [
+        "ahci"
+        "ehci_pci"
+        "sd_mod"
+        "sr_mod"
+        "uas"
+        "usb_storage"
+        "usbhid"
+        "xhci_pci"
+      ];
+      kernelModules = [
+        "amdgpu"
+      ];
+      verbose = false;
+    };
+    kernel = {
+      sysctl = {
+        "vm.swappiness" = 1;
+      };
+    };
+    kernelModules = [
+      "kvm-amd"
+      "kvm-intel"
+      "snd-aloop"
+      "v4l2loopback"
+    ];
+    kernelPackages = linuxPackages-rt_latest;
+    kernelParams = [
+      "quiet"
+      "mitigations=off"
+      "udev.log_level=3"
+    ];
+    loader = {
+      systemd-boot = {
+        enable = true;
+        editor = false;
+      };
+      efi = {
+        canTouchEfiVariables = true;
+      };
+      grub = {
+        useOSProber = false;
+        splashImage = null;
+      };
+      timeout = 0;
+    };
+    plymouth = {
+      enable = false;
+    };
+    extraModulePackages = with config.boot.kernelPackages; [
+      v4l2loopback.out
+    ];
+    extraModprobeConfig = ''
+      options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
+    '';
+  };
+}
