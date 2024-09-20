@@ -6,6 +6,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     ./filesystem.nix
 #    ./graphics.nix 	# Only for 24.11 / unstable
+#    ./lenovo-z50-wifi.nix
     ./networking.nix
     ./platform.nix
     ./processor.nix
