@@ -1,0 +1,7 @@
+{ ... }: {
+  services = {
+   timesyncd = {
+      enable = true;
+    };
+  };
+}

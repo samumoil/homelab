@@ -1,0 +1,6 @@
+NAME                                      FSTYPE      FSVER LABEL   UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+luks-204a4f62-3984-4744-9e43-8f06083d7477 btrfs             NIXROOT 66175c3f-db14-47c4-9e1b-7e454b9dc4a6                /nix/store
+└─nvme0n1p2                               crypto_LUKS 2             204a4f62-3984-4744-9e43-8f06083d7477                
+  └─nvme0n1                                                                                                             
+nvme0n1p1                                 vfat        FAT32         862C-9079                             961,4M     6% /boot
+└─nvme0n1                                                                                                               

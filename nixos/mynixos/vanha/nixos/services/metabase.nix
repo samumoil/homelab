@@ -1,0 +1,7 @@
+{ ... }: {
+  services = {
+    metabase = {
+      enable = false;
+    };
+  };
+}
