@@ -41,6 +41,7 @@
         - unifi
         - uptime-kuma
         - uptime-kuma-nfs
+        - librespeed
 
 ###
     - name: add cifs/samba details to /etc/fstab

@@ -61,3 +61,22 @@ services:
     ports:
       - 3001:3001
     restart: unless-stopped
+##############################
+  librespeed:
+    image: lscr.io/linuxserver/librespeed:latest
+    container_name: librespeed
+    hostname: librespeed
+    volumes:
+      - /samu/librespeed:/app/data
+    networks:
+      common:
+    ports:
+      - 80:80
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Helsinki
+    restart: unless-stopped
+
+
+
