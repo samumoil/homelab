@@ -50,9 +50,9 @@
         marker: "# ---ADDED BY ANSIBLE---"
         state: present
         block: |
-          10.10.10.122:/mnt/nas-ssd/app-databases/portainer /samu/portainer nfs rw 0 0
-          10.10.10.122:/mnt/nas-ssd/app-databases/unifi /samu/unifi nfs rw 0 0
-          10.10.10.122:/mnt/nas-ssd/app-databases/uptime-kuma /samu/uptime-kuma-nfs nfs rw 0 0
+          10.10.10.122:/mnt/nas/app-databases/portainer /samu/portainer nfs rw 0 0
+          10.10.10.122:/mnt/nas/app-databases/unifi /samu/unifi nfs rw 0 0
+          10.10.10.122:/mnt/nas/app-databases/uptime-kuma /samu/uptime-kuma-nfs nfs rw 0 0
 
 # Install Docker
     - name: import docker installation tasks file

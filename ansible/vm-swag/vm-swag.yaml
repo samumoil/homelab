@@ -46,7 +46,7 @@
         mode: "770"
       with_items:
         - swag/dns-conf
-        - nfs-swag
+        - swag-nfs
 ###
     - name: add cloudflare api key
       blockinfile:
@@ -67,7 +67,7 @@
         marker: "# ---ADDED BY ANSIBLE---"
         state: present
         block: |
-          10.10.10.122:/mnt/nas-ssd/app-databases/swag /samu/nfs-swag nfs rw 0 0
+          10.10.10.122:/mnt/nas/app-databases/swag /samu/swag-nfs nfs rw 0 0
 
 # Install Docker
     - name: import docker installation tasks file
@@ -91,5 +91,5 @@
         name: "copy certificates to nfs"
         minute: "0"
         hour: "4"
-        job: "cp /samu/swag/etc/letsencrypt/live/peikkoluola.com/* /samu/nfs-swag/peikkoluola.com-certificate/"
+        job: "cp /samu/swag/etc/letsencrypt/live/peikkoluola.com/* /samu/swag-nfs/peikkoluola.com-certificate/"
 
