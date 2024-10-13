@@ -82,7 +82,7 @@
 ###
     - name: add remote uptime kuma aws IP address to proxy config file
       ansible.builtin.replace:
-        path: /samu/swag/nginx/proxy-confs/uptime-kuma-remote.subdomain.conf
+        path: /samu/swag/nginx/site-confs/uptime-kuma-remote.subdomain.conf
         regexp: 'remote_ip'
         replace: '{{ remote_kuma_ip }}'
 ###

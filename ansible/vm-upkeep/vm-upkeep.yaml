@@ -67,6 +67,9 @@
         src: /samu/uptime-kuma-nfs/
         remote_src: true
         dest: /samu/uptime-kuma/
+##### THIS FAILED because one file needed user "sam" for copying and other needed sudo.
+
+
 
 # Copy configuration files from {{location_compose+confs}}
 # and docker-compose up -d --force-recreate and docker prune
