@@ -15,9 +15,9 @@
       prompt: Give cloudflare api email
     - name: cloudflare_api_key
       prompt: Give cloudflare api key
-    - name: remote_kuma_ip
-      private: false
-      prompt: Give remote uptime kuma aws IP
+ #   - name: remote_kuma_ip
+ #     private: false
+ #     prompt: Give remote uptime kuma aws IP
 
   tasks:
 # Install qemu guest agent and configure /etc/interfaces with promisc mode
@@ -80,11 +80,11 @@
       import_tasks:
         file: ../tasks/tasks-update-containers.yaml
 ###
-    - name: add remote uptime kuma aws IP address to proxy config file
-      ansible.builtin.replace:
-        path: /samu/swag/nginx/site-confs/uptime-kuma-remote.subdomain.conf
-        regexp: 'remote_ip'
-        replace: '{{ remote_kuma_ip }}'
+#    - name: add remote uptime kuma aws IP address to proxy config file
+#      ansible.builtin.replace:
+#        path: /samu/swag/nginx/site-confs/uptime-kuma-remote.subdomain.conf
+#        regexp: 'remote_ip'
+#        replace: '{{ remote_kuma_ip }}'
 ###
     - name: Create cron job to sync SSL certificate to nfs
       ansible.builtin.cron:
