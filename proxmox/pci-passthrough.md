@@ -96,3 +96,40 @@ Use those IDs in this command:
         echo "snd_hda_codec_hdmi" >> /etc/modprobe.d/blacklist.conf
         echo "i915" >> /etc/modprobe.d/blacklist.conf
 
+# Testing and final verification
+
+## IOMMU
+
+	dmesg | grep -E "DMAR|IOMMU"
+
+output AMD >>
+	[    0.000000] Warning: PCIe ACS overrides enabled; This may allow non-IOMMU protected peer-to-peer DMA
+
+output Intel >>
+	[    0.110221] DMAR: IOMMU enabled
+	[    0.951433] DMAR: Intel(R) Virtualization Technology for Directed I/O
+
+## Remapping
+
+	dmesg | grep 'remapping'
+
+output AMD >>
+	[    0.598913] AMD-Vi: Interrupt remapping enabled
+
+output Intel >>
+	[    0.190148] DMAR-IR: Queued invalidation will be enabled to support x2apic and Intr-remapping.
+	[    0.191599] DMAR-IR: Enabled IRQ remapping in x2apic mode
+
+## VFIO
+
+	dmesg | grep -i vfio
+
+
+output >>
+	[    7.262027] VFIO - User Level meta-driver version: 0.3
+	[    7.329352] vfio-pci 0000:01:00.0: vgaarb: deactivate vga console
+	[    7.329359] vfio-pci 0000:01:00.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=io+mem:owns=io+mem
+	[    7.329490] vfio_pci: add [1002:67df[ffffffff:ffffffff]] class 0x000000/00000000
+	[    7.376427] vfio_pci: add [1002:aaf0[ffffffff:ffffffff]] class 0x000000/00000000
+
+
