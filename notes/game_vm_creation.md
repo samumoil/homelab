@@ -15,6 +15,29 @@
 - Install steam first so we can observe gpu driver installation
 	dnf install steam
 - Set off: screensaver, autolock, power management
+
+
+
+## Autologin
+Nvidia drivers mess up autologin via display manager
+
+	systemctl edit getty@tty1
+
+	[Service]
+	ExecStart=
+	ExecStart=-/sbin/agetty --autologin $username --noclear %I $TERM
+
+Put in ~/.bash_profile
+	[ "$(tty)" = "/dev/tty1" ] && exec startx
+
+Make system boot to tty
+	systemctl set-default multi-user.target
+
+(Revert back to lightdm)
+	systemctl set-default graphical.target
+
+
+
 - Install NVIDIA drivers and nvtop to follow gpu usage
 	dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda nvtop
 After the RPM transaction ends, please remember to wait until the kmod has been built. This can take up to 5 minutes on some systems.
@@ -24,7 +47,7 @@ Follow installation with btop open, you can see CPU usage while dnf is building 
 ## Sunshine
 - Install sunshine as flatpak
 	flatpak install sunshine
-- Install additional stuff
+- Install additional stuff. Run in remote desktop!!!
 	flatpak run --command=additional-install.sh dev.lizardbyte.app.Sunshine
 - Enable autostart (check sunshine install guide for autostart if this fails)
 	systemctl --user enable sunshine
