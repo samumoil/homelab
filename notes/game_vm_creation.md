@@ -49,6 +49,16 @@ Follow installation with btop open, you can see CPU usage while dnf is building 
 	flatpak install sunshine
 - Install additional stuff. Run in remote desktop!!!
 	flatpak run --command=additional-install.sh dev.lizardbyte.app.Sunshine
-- Enable autostart (check sunshine install guide for autostart if this fails)
-	systemctl --user enable sunshine
+- Default autostart doesn't work because lightdm is disabled. Instead use XFCE autostart.
+- Add XFCE autostart of command
+	flatpak run --command=sunshine dev.lizardbyte.app.Sunshine
+- Open firewall ports in VM
+	firewall-cmd --permanent --add-port={47984/tcp,47989/tcp,47990/tcp,48010/tcp,47998/udp,47999/udp,48000/udp}
+	firewall-cmd --reload
+	firewall-cmd --list-ports
 
+
+
+
+
+https://www.reddit.com/r/cloudygamer/comments/1ad8bdg/how_to_perfectly_optimize_sunshine_and_moonlight/
