@@ -19,8 +19,8 @@ services:
 #      - JELLYFIN_PublishedServerUrl=https://jellyfin.peikkoluola.com #optional
     volumes:
       - /samu/app-databases/jellyfin:/config
-      - /samu/smb-cloud-ssd/pcloud/jako-perhe/musiikki:/data/music
-      - /samu/smb-cloud-ssd/pcloud/jako-perhe/kuvat+videot:/data/photos
+      - /samu/smb-cloud/pcloud/jako-perhe/musiikki:/data/music
+      - /samu/smb-cloud/pcloud/jako-perhe/kuvat+videot:/data/photos
 #      - /samu/docker/aaa-verkkoinfra/swag-conf/etc/letsencrypt/live/peikkoluola.com:/ssl-certs
     networks:
       common:

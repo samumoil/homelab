@@ -40,7 +40,7 @@
         mode: "770"
       with_items:
         - app-databases
-        - smb-cloud-ssd
+        - smb-cloud
 ###
     - name: add cifs/samba details to /etc/fstab
       blockinfile:
@@ -48,8 +48,8 @@
         marker: "# ---ADDED BY ANSIBLE---"
         state: present
         block: |
-          //10.10.10.122/cloud-ssd /samu/smb-cloud-ssd cifs credentials=/samu/.smb_credentials,uid=1000,gid=1000,rw,iocharset=utf8 0 0
-          10.10.10.122:/mnt/nas-ssd/app-databases /samu/app-databases nfs rw 0 0
+          //10.10.10.122/cloud /samu/smb-cloud cifs credentials=/samu/.smb_credentials,uid=1000,gid=1000,rw,iocharset=utf8 0 0
+          10.10.10.122:/mnt/nas/app-databases /samu/app-databases nfs rw 0 0
 
 # This is after common tasks because /samu is created now. 
 # Also, postinstall docker stuff includes reboot (to activate mount)
