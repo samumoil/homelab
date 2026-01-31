@@ -71,7 +71,7 @@ services:
     networks:
       common:
     ports:
-      - 80:80
+      - 8080:80
     environment:
       - PUID=1000
       - PGID=1000
